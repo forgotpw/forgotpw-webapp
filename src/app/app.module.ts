@@ -5,7 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PasswordHintStoreFormComponent } from './password-hint-store-form/password-hint-store-form.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +15,8 @@ import { PasswordHintStoreFormComponent } from './password-hint-store-form/passw
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

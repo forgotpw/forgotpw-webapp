@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PasswordHintStoreRequest } from '../password-hint-store-request';
 import { PasswordSecretsService } from '../password-secrets.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-password-hint-store-form',
@@ -10,20 +11,22 @@ import { PasswordSecretsService } from '../password-secrets.service';
 })
 export class PasswordHintStoreFormComponent implements OnInit {
   model = new PasswordHintStoreRequest('', '', '');
-  working = false;
 
-  constructor(private passwordSecretsService: PasswordSecretsService) { }
+  constructor(
+    private passwordSecretsService: PasswordSecretsService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.working = true;
-    console.log('Starting request')
+    this.spinner.show();
     this.passwordSecretsService.storePasswordHint(this.model)
     .subscribe(() => {
-      console.log('Finished request')
-      this.working = false;
+      this.spinner.hide();
+      this.model.application = '';
+      this.model.phone = '';
+      this.model.hint = '';
     })
   }
 
