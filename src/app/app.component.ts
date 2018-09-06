@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MdRadioChange } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -6,15 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  selectedMode: any;
   modes: Array<any> = [
     {
-      value:   'STORE',
-      desc: 'Store a password hint'
+      value: 'STORE',
+      desc:  'Store a password hint'
     },
     {
-      value:   'RETRIEVE',
-      desc: 'Retrieve a password hint'
+      value: 'RETRIEVE',
+      desc:  'Retrieve a password hint'
     }
   ];
+  selectedMode: string = this.modes[0].value;
+
+  radioChange(event: MdRadioChange) {
+    //console.log(event.value);
+  }
+
 }
