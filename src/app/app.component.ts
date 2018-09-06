@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'forgotpw-webapp test';
+  selectedMode: any;
+  modes: Array<any> = [
+    {
+      value:   'STORE',
+      desc: 'Store a password hint'
+    },
+    {
+      value:   'RETRIEVE',
+      desc: 'Retrieve a password hint'
+    }
+  ];
 }
