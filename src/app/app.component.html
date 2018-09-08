@@ -21,6 +21,12 @@
 
 <br/>
 
+<div [hidden]="!showSuccess" style="text-align:center">
+  <img width="50" src="assets/img/success-check.png">
+  <p>Your request has been successfully submitted</p>
+  <br/>
+</div>
+
 <div [hidden]="selectedMode != 'MENU'" style="text-align:center">
   <button 
     mat-stroked-button

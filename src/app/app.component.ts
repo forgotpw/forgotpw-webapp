@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timer } from 'rxjs';
 // import { MdRadioChange } from '@angular/material';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
   //   //console.log(event.value);
   // }
   selectedMode: string;
+  showSuccess: boolean = false;
 
   ngOnInit() {
     this.selectedMode = 'MENU';
@@ -35,8 +37,13 @@ export class AppComponent implements OnInit {
     this.selectedMode = 'RETRIEVE';
   }
 
-  onStoreSubmitted() {
+  onStoreSubmitted(submitted: boolean) {
     this.selectedMode = 'MENU';
+    if (submitted) {
+      this.showSuccess = true;
+      const successBannerTimer = timer(3000);
+      const subscribe = successBannerTimer.subscribe(() => this.showSuccess = false)
+    }
   }
 
 }
