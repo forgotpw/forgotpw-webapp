@@ -4,7 +4,6 @@
     Forgot your password?
   </h1>
   <p>Of course you did.</p>
-  <img width="100" alt="ForgotPW" src="assets/img/unlock.svg">
 </div>
 
 <!--
@@ -21,9 +20,11 @@
 
 <br/>
 
-<div [hidden]="!showSuccess" style="text-align:center">
-  <img width="50" src="assets/img/success-check.png">
-  <p>Your request has been successfully submitted</p>
+<div [hidden]="selectedMode != 'SUCCESS_STORE'" style="text-align:center">
+  <p>
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+      <strong>Your password hint has been stored.</strong>
+  </p>
   <br/>
 </div>
 
@@ -46,6 +47,16 @@
   </button>
   <br/>
   Please text me my password hint now.
+  <br/>
+  <h3>FAQ</h3>
+  <h4>Is this safe?</h4>
+  We don't ask for your name, username, or real password.  We only only send SMS text
+  messages upon request containing just the password hint requested, not
+  the website it is for, or any other information.  Don't give us your
+  real password, just a hint that only you will know.
+  <h4>Why don't I have to log in?</h4>
+  <h4>Can I remove all my stored password hints?</h4>
+  <h4>Are SMS text messages secure?</h4>
 </div>
 
 <app-password-hint-store-form

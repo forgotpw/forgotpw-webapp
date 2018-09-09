@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
   //   //console.log(event.value);
   // }
   selectedMode: string;
-  showSuccess: boolean = false;
 
   ngOnInit() {
     this.selectedMode = 'MENU';
@@ -38,11 +37,13 @@ export class AppComponent implements OnInit {
   }
 
   onStoreSubmitted(submitted: boolean) {
-    this.selectedMode = 'MENU';
     if (submitted) {
-      this.showSuccess = true;
+      this.selectedMode = 'SUCCESS_STORE';
       const successBannerTimer = timer(3000);
-      const subscribe = successBannerTimer.subscribe(() => this.showSuccess = false)
+      const subscribe = successBannerTimer.subscribe(() =>
+        this.selectedMode = 'MENU')
+    } else {
+      this.selectedMode = 'MENU';
     }
   }
 
