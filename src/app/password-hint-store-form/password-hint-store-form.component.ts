@@ -1,8 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { PasswordHintStoreRequest } from '../password-hint-store-request';
 import { PasswordSecretsService } from '../password-secrets.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-password-hint-store-form',
@@ -13,13 +15,17 @@ import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, Valida
 export class PasswordHintStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private storeForm: FormGroup;
+  showSuccess: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
     private spinner: NgxSpinnerService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
+    this.showSuccess = false;
+
     this.storeForm = this.formBuilder.group({
       application: [
           '', [
@@ -51,24 +57,31 @@ export class PasswordHintStoreFormComponent implements OnInit {
     if (this.storeForm.invalid) {
       return;
     }
-    this.spinner.show();
 
     let model = new PasswordHintStoreRequest('', '', '');
     model.application = this.f.application.value;
     model.phone = this.f.phone.value;
     model.hint = this.f.hint.value;
 
+    this.spinner.show();
     this.passwordSecretsService.storePasswordHint(model)
     .subscribe(() => {
       this.spinner.hide();
-      storeFormDirective.reset();
-      this.storeForm.reset();
-      this.submitted.emit(true);
-    })
+
+      this.showSuccess = true;
+      const successBannerTimer = timer(3000);
+      const subscribe = successBannerTimer.subscribe(() => {
+        storeFormDirective.reset();
+        this.storeForm.reset();
+        this.submitted.emit(true);
+        this.router.navigate(['/']);
+      });
+    });
   }
 
   onCancel() {
     this.submitted.emit(false);
+    this.router.navigate(['/']);
   }
 
 }

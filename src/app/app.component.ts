@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { timer } from 'rxjs';
+import { Router } from '@angular/router';
 // import { MdRadioChange } from '@angular/material';
 
 @Component({
@@ -24,27 +24,11 @@ export class AppComponent implements OnInit {
   // }
   selectedMode: string;
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
-    this.selectedMode = 'MENU';
-  }
-
-  onStoreClick() {
-    this.selectedMode = 'STORE';
-  }
-
-  onRetrieveClick() {
-    this.selectedMode = 'RETRIEVE';
-  }
-
-  onStoreSubmitted(submitted: boolean) {
-    if (submitted) {
-      this.selectedMode = 'SUCCESS_STORE';
-      const successBannerTimer = timer(3000);
-      const subscribe = successBannerTimer.subscribe(() =>
-        this.selectedMode = 'MENU')
-    } else {
+    if (this.router.url == '/') {
       this.selectedMode = 'MENU';
     }
   }
-
 }

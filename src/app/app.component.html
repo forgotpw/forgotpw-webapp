@@ -18,7 +18,7 @@
 </div>
 -->
 
-<br/>
+<!-- <br/>
 
 <div [hidden]="selectedMode != 'SUCCESS_STORE'" style="text-align:center">
   <p>
@@ -57,9 +57,11 @@
   <h4>Why don't I have to log in?</h4>
   <h4>Can I remove all my stored password hints?</h4>
   <h4>Are SMS text messages secure?</h4>
-</div>
+</div> -->
 
-<app-password-hint-store-form
+<!-- <app-password-hint-store-form
   [hidden]="selectedMode != 'STORE'"
   (submitted)="onStoreSubmitted($event)">
-</app-password-hint-store-form>
+</app-password-hint-store-form> -->
+
+<router-outlet></router-outlet>
