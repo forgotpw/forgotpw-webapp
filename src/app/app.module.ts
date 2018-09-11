@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MenuComponent } from './menu/menu.component';
+import { PasswordHintRetrieveFormComponent } from './password-hint-retrieve-form/password-hint-retrieve-form.component';
 
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/app', pathMatch: 'full' },
@@ -23,6 +24,10 @@ const appRoutes: Routes = [
     path: 'store',
     component: PasswordHintStoreFormComponent
   },
+  {
+    path: 'retrieve',
+    component: PasswordHintRetrieveFormComponent
+  },
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -30,7 +35,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PasswordHintStoreFormComponent,
-    MenuComponent
+    MenuComponent,
+    PasswordHintRetrieveFormComponent
   ],
   imports: [
     RouterModule.forRoot(
