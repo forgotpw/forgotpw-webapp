@@ -1,67 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Forgot your password?
+    Forgot your password?  Let us text you a hint.
   </h1>
-  <p>Of course you did.</p>
 </div>
-
-<!--
-<div style="text-align:center">
-  <mat-radio-group class="example-radio-group"
-      [(ngModel)]="selectedMode"
-      (change)="radioChange($event)">
-    <mat-radio-button class="example-radio-button" *ngFor="let mode of modes" [value]="mode.value">
-      {{mode.desc}}
-    </mat-radio-button>
-  </mat-radio-group>
-</div>
--->
-
-<!-- <br/>
-
-<div [hidden]="selectedMode != 'SUCCESS_STORE'" style="text-align:center">
-  <p>
-      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
-      <strong>Your password hint has been stored.</strong>
-  </p>
-  <br/>
-</div>
-
-<div [hidden]="selectedMode != 'MENU'" style="text-align:center">
-  <button 
-    mat-stroked-button
-    color="primary"
-    (click)="onStoreClick()">
-    Store a password hint
-  </button>
-  <br/>
-  Store a password hint so you can send it to yourself as a text message later.
-  <br/>
-  <br/>
-  <button
-    mat-stroked-button
-    color="primary"
-    (click)="onRetrieveClick()">
-    Retrieve a password hint
-  </button>
-  <br/>
-  Please text me my password hint now.
-  <br/>
-  <h3>FAQ</h3>
-  <h4>Is this safe?</h4>
-  We don't ask for your name, username, or real password.  We only only send SMS text
-  messages upon request containing just the password hint requested, not
-  the website it is for, or any other information.  Don't give us your
-  real password, just a hint that only you will know.
-  <h4>Why don't I have to log in?</h4>
-  <h4>Can I remove all my stored password hints?</h4>
-  <h4>Are SMS text messages secure?</h4>
-</div> -->
-
-<!-- <app-password-hint-store-form
-  [hidden]="selectedMode != 'STORE'"
-  (submitted)="onStoreSubmitted($event)">
-</app-password-hint-store-form> -->
 
 <router-outlet></router-outlet>
