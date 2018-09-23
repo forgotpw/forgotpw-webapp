@@ -13,6 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MenuComponent } from './menu/menu.component';
 import { PasswordHintRetrieveFormComponent } from './password-hint-retrieve-form/password-hint-retrieve-form.component';
+import { FaqComponent } from './faq/faq.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/app', pathMatch: 'full' },
@@ -36,7 +39,10 @@ const appRoutes: Routes = [
     AppComponent,
     PasswordHintStoreFormComponent,
     MenuComponent,
-    PasswordHintRetrieveFormComponent
+    PasswordHintRetrieveFormComponent,
+    FaqComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     RouterModule.forRoot(
