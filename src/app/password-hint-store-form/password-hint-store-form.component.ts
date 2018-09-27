@@ -16,6 +16,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private storeForm: FormGroup;
   showSuccess: boolean = false;
+  showCodeEntry: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -53,7 +54,11 @@ export class PasswordHintStoreFormComponent implements OnInit {
 
   get f() { return this.storeForm.controls; }
 
-  onSubmit(storeFormDirective: FormGroupDirective) {
+  onSubmit() {
+    this.showCodeEntry = true;
+  }
+
+  submitForm() {
     if (this.storeForm.invalid) {
       return;
     }
@@ -71,7 +76,6 @@ export class PasswordHintStoreFormComponent implements OnInit {
       this.showSuccess = true;
       const successBannerTimer = timer(3000);
       const subscribe = successBannerTimer.subscribe(() => {
-        storeFormDirective.reset();
         this.storeForm.reset();
         this.submitted.emit(true);
         this.router.navigate(['/']);

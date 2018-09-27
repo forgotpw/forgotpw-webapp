@@ -1,0 +1,33 @@
+<section class="accordion accordion-is-open accordion-has-border">
+  <div class="accordion-header" style="border-color: inherit;">
+    <div role="button" tabindex="0" class="accordion-headline">
+      <div class="accordion-headline-left">
+        <span class="accordion-headline-text">An authentication code has been sent to your phone.  Enter the code to continue.</span>
+      </div>
+      <div class="accordion-headline-right">
+        <div class="accordion-headline-secondary-text-section accordion-headline-secondary-text-section-has-no-subtext">
+          <span class="accordion-headline-secondary-text"></span>
+          <span class="accordion-headline-secondary-subtext"></span>
+        </div>
+        <i class="fa fa-angle-right fa-2x accordion-headline-arrow accordion-headline-arrow-is-down"></i>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-content accordion-content-is-aligned">
+    <div class="auto-advance-inputs">
+      <input #code1 (keyup)="onCodeKey(1, code1.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code2 (keyup)="onCodeKey(2, code2.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code3 (keyup)="onCodeKey(3, code3.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code4 (keyup)="onCodeKey(4, code4.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
+      <div *ngIf="showSubmitProgress">
+        <img src="/assets/img/spinner.svg" alt="spinner" class="auto-advance-inputs-spinner">
+      </div>
+      <div *ngIf="showSubmitSuccess">
+        <img src="/assets/img/check.svg" alt="check" class="auto-advance-inputs-check">
+      </div>
+    </div>
+    <div class="two-factor-footer">
+      <a (click)="onRequestNewCode()" *ngIf="!showSubmitProgress" >Request another code</a>
+    </div>
+  </div>
+</section>

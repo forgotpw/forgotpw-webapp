@@ -16,6 +16,7 @@ import { PasswordHintRetrieveFormComponent } from './password-hint-retrieve-form
 import { FaqComponent } from './faq/faq.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CodeEntryComponent } from './code-entry/code-entry.component';
 
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/app', pathMatch: 'full' },
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
     PasswordHintRetrieveFormComponent,
     FaqComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CodeEntryComponent
   ],
   imports: [
     RouterModule.forRoot(
