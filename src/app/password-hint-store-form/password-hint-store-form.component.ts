@@ -70,18 +70,22 @@ export class PasswordHintStoreFormComponent implements OnInit {
       this.showCodeLoading = false;
       this.showCodeEntry = true;
     })
-
   }
 
-  submitForm() {
+  onCodeEntered(codeEntered: string) {
+    this.submitForm(codeEntered);
+  }
+
+  submitForm(code) {
     if (this.storeForm.invalid) {
       return;
     }
 
-    let model = new PasswordHintStoreRequest('', '', '');
-    model.application = this.f.application.value;
-    model.phone = this.f.phone.value;
-    model.hint = this.f.hint.value;
+    let model = new PasswordHintStoreRequest(
+      this.f.application.value,
+      this.f.hint.value,
+      this.f.phone.value,
+      code);
 
     this.spinner.show();
     this.passwordSecretsService.storePasswordHint(model)

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-code-entry',
@@ -10,6 +10,7 @@ export class CodeEntryComponent implements OnInit {
   @ViewChild("code2") code2Input: ElementRef;
   @ViewChild("code3") code3Input: ElementRef;
   @ViewChild("code4") code4Input: ElementRef;
+  @Output() codeEntered = new EventEmitter<string>();
   showSubmitProgress: boolean = false;
   showSubmitSuccess: boolean = false;
   codeChars: Array<string>;
@@ -57,11 +58,9 @@ export class CodeEntryComponent implements OnInit {
     } else {
       // complete
       this.showSubmitProgress = true;
-      // todo ...
       let completedCode = this.codeChars.join('');
-      console.log(`Ready to submit: ${completedCode}`)
-
-
+      console.log(`Code entered: ${completedCode}`);
+      this.codeEntered.emit(completedCode);
     }
   }
 
