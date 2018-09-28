@@ -17,11 +17,12 @@ import { timer } from 'rxjs';
 export class PasswordHintStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private storeForm: FormGroup;
-  private showSuccess: boolean = false;
-  private showCodeEntry: boolean = false;
-  private showCodeLoading: boolean = false;
-  private showInvalidCode: boolean = false;
-  private showError: boolean = false;
+  showSuccess: boolean = false;
+  showCodeEntry: boolean = false;
+  showCodeLoading: boolean = false;
+  showInvalidCode: boolean = false;
+  showError: boolean = false;
+  errorMessage: string = '';
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -109,6 +110,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
         this.showInvalidCode = true;
       } else {
         this.showError = true;
+        this.errorMessage = err.message;
       }
 
     });

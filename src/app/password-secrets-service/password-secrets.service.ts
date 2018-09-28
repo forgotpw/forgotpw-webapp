@@ -61,21 +61,25 @@ export class PasswordSecretsService {
       // The response body may contain clues as to what went wrong,
       console.error(
         `Backend error from API, returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${JSON.stringify(error.error)}`);
+    }
+
+    let msg = 'Error'
+    try {
+      if (error.error.message.message) {
+        msg = JSON.stringify(error.error.message.message)
+      } else {
+        msg = JSON.stringify(error.error.message);
+      }
+    }
+    catch (err) {
+      console.error(`Error generating error message: ${err}`);
     }
 
     // return an observable with a user-facing error message
-
-    if (error.status == 401) {
-      return throwError({
-        status: 401,
-        message: 'Confirmation code is invalid or expired'
-      });
-  
-    }
     return throwError({
-      status: 500,
-      message: 'Error occurred invoking password secrets service.' 
+      status: error.status,
+      message: msg
     });
   };
 }
