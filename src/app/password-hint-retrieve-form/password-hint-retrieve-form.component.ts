@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { PasswordHintRetrieveRequest } from '../password-hint-retrieve-request';
-import { PasswordSecretsService } from '../password-secrets.service';
+import { PasswordHintRetrieveRequest } from '../password-secrets-service/password-hint-retrieve-request';
+import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

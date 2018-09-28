@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { PasswordHintStoreRequest } from '../password-hint-store-request';
-import { PasswordSecretsService } from '../password-secrets.service';
+import { PasswordHintStoreRequest } from '../password-secrets-service/password-hint-store-request';
+import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { CodesService } from '../codes-service/codes.service'
 import { CodeGenerateRequest } from '../codes-service/code-generate-request';
 import { NgxSpinnerService } from 'ngx-spinner';
