@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { PasswordHintStoreRequest } from '../password-hint-store-request';
 import { PasswordSecretsService } from '../password-secrets.service';
+import { CodesService } from '../codes-service/codes.service'
+import { CodeGenerateRequest } from '../codes-service/code-generate-request';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,16 +12,18 @@ import { timer } from 'rxjs';
   selector: 'app-password-hint-store-form',
   templateUrl: './password-hint-store-form.component.html',
   styleUrls: ['./password-hint-store-form.component.css'],
-  providers: [PasswordSecretsService]
+  providers: [PasswordSecretsService, CodesService]
 })
 export class PasswordHintStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private storeForm: FormGroup;
   showSuccess: boolean = false;
   showCodeEntry: boolean = false;
+  showCodeLoading: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
+    private codesService: CodesService,
     private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private router: Router) { }
@@ -55,7 +59,18 @@ export class PasswordHintStoreFormComponent implements OnInit {
   get f() { return this.storeForm.controls; }
 
   onSubmit() {
-    this.showCodeEntry = true;
+    let codeRequest = new CodeGenerateRequest(
+      this.f.application.value,
+      this.f.phone.value
+    )
+    this.showCodeLoading = true;
+    this.storeForm.disable();
+    this.codesService.requestCode(codeRequest)
+    .subscribe(() => {
+      this.showCodeLoading = false;
+      this.showCodeEntry = true;
+    })
+
   }
 
   submitForm() {
