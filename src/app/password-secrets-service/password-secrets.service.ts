@@ -63,8 +63,19 @@ export class PasswordSecretsService {
         `Backend error from API, returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
+
     // return an observable with a user-facing error message
-    return throwError(
-      'Error occurred invoking password secrets service.');
+
+    if (error.status == 401) {
+      return throwError({
+        status: 401,
+        message: 'Confirmation code is invalid or expired'
+      });
+  
+    }
+    return throwError({
+      status: 500,
+      message: 'Error occurred invoking password secrets service.' 
+    });
   };
 }

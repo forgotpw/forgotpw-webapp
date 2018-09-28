@@ -17,9 +17,11 @@ import { timer } from 'rxjs';
 export class PasswordHintStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private storeForm: FormGroup;
-  showSuccess: boolean = false;
-  showCodeEntry: boolean = false;
-  showCodeLoading: boolean = false;
+  private showSuccess: boolean = false;
+  private showCodeEntry: boolean = false;
+  private showCodeLoading: boolean = false;
+  private showInvalidCode: boolean = false;
+  private showError: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -89,7 +91,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
 
     this.spinner.show();
     this.passwordSecretsService.storePasswordHint(model)
-    .subscribe(() => {
+    .subscribe(res => {
       this.spinner.hide();
 
       this.showSuccess = true;
@@ -99,6 +101,16 @@ export class PasswordHintStoreFormComponent implements OnInit {
         this.submitted.emit(true);
         this.router.navigate(['/']);
       });
+    },
+    err => {
+      this.spinner.hide();
+      console.log(err);
+      if (err.status && err.status == 401) {
+        this.showInvalidCode = true;
+      } else {
+        this.showError = true;
+      }
+
     });
   }
 
