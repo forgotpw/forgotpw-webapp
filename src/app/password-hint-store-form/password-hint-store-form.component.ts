@@ -75,6 +75,22 @@ export class PasswordHintStoreFormComponent implements OnInit {
     })
   }
 
+  onRequestNewCode() {
+    this.showInvalidCode = false;
+    let codeRequest = new CodeGenerateRequest(
+      this.f.application.value,
+      this.f.phone.value
+    )
+    this.showCodeLoading = true;
+    this.codeEntry.reset();
+    this.showCodeEntry = false;
+    this.codesService.requestCode(codeRequest)
+    .subscribe(() => {
+      this.showCodeLoading = false;
+      this.showCodeEntry = true;
+    })
+  }
+
   onCodeEntered(codeEntered: string) {
     this.submitForm(codeEntered);
   }
