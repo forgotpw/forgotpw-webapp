@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PasswordHintStoreRequest } from '../password-secrets-service/password-hint-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { CodesService } from '../codes-service/codes.service'
@@ -12,6 +12,7 @@ import { CodeEntryComponent } from '../code-entry/code-entry.component'
   selector: 'app-password-hint-store-form',
   templateUrl: './password-hint-store-form.component.html',
   styleUrls: ['./password-hint-store-form.component.css'],
+  //encapsulation: ViewEncapsulation.None,
   providers: [PasswordSecretsService, CodesService]
 })
 export class PasswordHintStoreFormComponent implements OnInit {
@@ -24,6 +25,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
   showInvalidCode: boolean = false;
   showError: boolean = false;
   errorMessage: string = '';
+  hideTyping: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -93,6 +95,10 @@ export class PasswordHintStoreFormComponent implements OnInit {
 
   onCodeEntered(codeEntered: string) {
     this.submitForm(codeEntered);
+  }
+
+  OnHideTypingChange($event){
+    this.hideTyping = $event.checked; 
   }
 
   submitForm(code) {
