@@ -1,12 +1,12 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { PasswordHintStoreRequest } from '../password-secrets-service/password-hint-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { CodesService } from '../codes-service/codes.service'
 import { CodeGenerateRequest } from '../codes-service/code-generate-request';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
+import { CodeEntryComponent } from '../code-entry/code-entry.component'
 
 @Component({
   selector: 'app-password-hint-store-form',
@@ -16,6 +16,7 @@ import { timer } from 'rxjs';
 })
 export class PasswordHintStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
+  @ViewChild("codeEntry") codeEntry: CodeEntryComponent;
   private storeForm: FormGroup;
   showSuccess: boolean = false;
   showCodeEntry: boolean = false;
@@ -27,7 +28,6 @@ export class PasswordHintStoreFormComponent implements OnInit {
   constructor(
     private passwordSecretsService: PasswordSecretsService,
     private codesService: CodesService,
-    private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private router: Router) { }
 
@@ -90,10 +90,8 @@ export class PasswordHintStoreFormComponent implements OnInit {
       this.f.phone.value,
       code);
 
-    this.spinner.show();
     this.passwordSecretsService.storePasswordHint(model)
     .subscribe(res => {
-      this.spinner.hide();
 
       this.showSuccess = true;
       const successBannerTimer = timer(3000);
@@ -104,7 +102,6 @@ export class PasswordHintStoreFormComponent implements OnInit {
       });
     },
     err => {
-      this.spinner.hide();
       console.log(err);
       if (err.status && err.status == 401) {
         this.showInvalidCode = true;
@@ -112,6 +109,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
         this.showError = true;
         this.errorMessage = err.message;
       }
+      this.codeEntry.reset();
 
     });
   }

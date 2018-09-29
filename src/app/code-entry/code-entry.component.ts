@@ -24,9 +24,19 @@ export class CodeEntryComponent implements OnInit {
     this.code1Input.nativeElement.focus();
   }
 
+  reset() {
+    this.code1Input.nativeElement.value = '';
+    this.code2Input.nativeElement.value = '';
+    this.code3Input.nativeElement.value = '';
+    this.code4Input.nativeElement.value = '';
+    this.codeChars = new Array<string>();
+    this.showSubmitProgress = false;
+    this.code1Input.nativeElement.focus();
+  }
+
   onCodeKey(charNum: number, value: string) {
     if (value.trim().length > 0) {
-      this.advance(value.trim(), charNum)
+      this.advance(value.trim(), charNum);
     }
   }
 
