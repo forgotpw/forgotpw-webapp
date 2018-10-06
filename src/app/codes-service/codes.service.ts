@@ -4,12 +4,12 @@ import { HttpHeaders } from '@angular/common/http';
 import { CodeGenerateRequest } from './code-generate-request'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CodesService {
-  apiUrl = 'https://api-dev.forgotpw.com/v1'
 
   constructor(
     private http: HttpClient
@@ -23,7 +23,7 @@ export class CodesService {
       })
     };
     
-    const url = this.apiUrl + '/codes'
+    const url = environment.apiUrl + '/codes'
     return this.http.post<CodeGenerateRequest>(
       url,
       codeGenerateRequest)

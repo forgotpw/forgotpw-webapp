@@ -8,13 +8,21 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Deploy
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Deploy - Dev
 
 ```shell
-ng build --prod
-# or use SUBDOMAIN "www-dev" for dev
+ng build
+SUBDOMAIN="www-dev" \
+aws s3 cp \
+  ./dist/forgotpw-webapp/ \
+  s3://$SUBDOMAIN.forgotpw.com/ \
+  --recursive
+```
+
+## Deploy - Prod
+
+```shell
+ng build --prod --configuration=prod
 SUBDOMAIN="www" \
 aws s3 cp \
   ./dist/forgotpw-webapp/ \

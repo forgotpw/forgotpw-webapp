@@ -5,12 +5,12 @@ import { PasswordHintStoreRequest } from './password-hint-store-request'
 import { PasswordHintRetrieveRequest } from './password-hint-retrieve-request'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PasswordSecretsService {
-  apiUrl = 'https://api-dev.forgotpw.com/v1'
 
   constructor(
     private http: HttpClient
@@ -24,7 +24,7 @@ export class PasswordSecretsService {
       })
     };
     
-    const url = this.apiUrl + '/secrets'
+    const url = environment.apiUrl + '/secrets'
     return this.http.put<PasswordHintStoreRequest>(
       url,
       pwhintStoreRequest)
@@ -42,7 +42,7 @@ export class PasswordSecretsService {
       })
     };
     
-    const url = this.apiUrl + '/secrets'
+    const url = environment.apiUrl + '/secrets'
     return this.http.post<PasswordHintRetrieveRequest>(
       url,
       pwhintRetrieveRequest)
