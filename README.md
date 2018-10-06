@@ -12,20 +12,24 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ```shell
 ng build
-SUBDOMAIN="www-dev" \
+export AWS_ENV="dev" && export PROFILE="fpw$AWS_ENV"
+export SUBDOMAIN="www-dev"
 aws s3 cp \
   ./dist/forgotpw-webapp/ \
   s3://$SUBDOMAIN.forgotpw.com/ \
-  --recursive
+  --recursive \
+  --profile $PROFILE
 ```
 
 ## Deploy - Prod
 
 ```shell
-ng build --prod --configuration=prod
-SUBDOMAIN="www" \
+ng build --prod --configuration=production
+export AWS_ENV="prod" && export PROFILE="fpw$AWS_ENV"
+export SUBDOMAIN="www"
 aws s3 cp \
   ./dist/forgotpw-webapp/ \
   s3://$SUBDOMAIN.forgotpw.com/ \
-  --recursive
+  --recursive \
+  --profile $PROFILE
 ```
