@@ -22,9 +22,9 @@ import { FooterComponent } from './footer/footer.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
 
 const appRoutes: Routes = [
-  { path: '',   redirectTo: '/app', pathMatch: 'full' },
+  //{ path: '',   redirectTo: '/app', pathMatch: 'full' },
   {
-    path: 'app',
+    path: '',
     component: MenuComponent
   },
   {
@@ -52,7 +52,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false }
+      { enableTracing: false, useHash: true }
     ),
     BrowserModule,
     FormsModule,
