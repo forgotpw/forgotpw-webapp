@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-// import { MdRadioChange } from '@angular/material';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,23 +7,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  // modes: Array<any> = [
-  //   {
-  //     value: 'STORE',
-  //     desc:  'Store a password hint'
-  //   },
-  //   {
-  //     value: 'RETRIEVE',
-  //     desc:  'Retrieve a password hint'
-  //   }
-  // ];
-  // selectedMode: string = this.modes[0].value;
-  // radioChange(event: MdRadioChange) {
-  //   //console.log(event.value);
-  // }
   selectedMode: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    // https://codeburst.io/using-google-analytics-with-angular-25c93bffaa18
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        (<any>window).ga('set', 'page', event.urlAfterRedirects);
+        (<any>window).ga('send', 'pageview');
+      }
+    });
+  }
 
   ngOnInit() {
     if (this.router.url == '/') {
