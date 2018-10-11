@@ -2,10 +2,10 @@
     <h3>An authentication code has been sent to your phone.</h3>
     <h4>Enter the code to continue.</h4>
     <div class="auto-advance-inputs">
-      <input #code1 (keyup)="onCodeKey(1, code1.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
-      <input #code2 (keyup)="onCodeKey(2, code2.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
-      <input #code3 (keyup)="onCodeKey(3, code3.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
-      <input #code4 (keyup)="onCodeKey(4, code4.value)" type="text" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code1 (keyup)="onCodeKey(1, code1.value)" type="number" pattern="[0-9]*" inputmode="numeric" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code2 (keyup)="onCodeKey(2, code2.value)" type="number" pattern="[0-9]*" inputmode="numeric" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code3 (keyup)="onCodeKey(3, code3.value)" type="number" pattern="[0-9]*" inputmode="numeric" maxlength="1" class="auto-advance-inputs-input" value="">
+      <input #code4 (keyup)="onCodeKey(4, code4.value)" type="number" pattern="[0-9]*" inputmode="numeric" maxlength="1" class="auto-advance-inputs-input" value="">
       <div *ngIf="showSubmitProgress">
         <img src="/assets/img/spinner.svg" alt="spinner" class="auto-advance-inputs-spinner">
       </div>
