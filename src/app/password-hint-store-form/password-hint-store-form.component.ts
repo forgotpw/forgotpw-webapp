@@ -72,8 +72,13 @@ export class PasswordHintStoreFormComponent implements OnInit {
     this.storeForm.disable();
     this.codesService.requestCode(codeRequest)
     .subscribe(() => {
-      this.showCodeLoading = false;
-      this.showCodeEntry = true;
+      // since it takes a second or so to receive the text anyway
+      // let's keep the spinner animation going for a bit longer
+      const animationTimer = timer(750);
+      const subscribe = animationTimer.subscribe(() => {
+        this.showCodeLoading = false;
+        this.showCodeEntry = true;
+        });
     })
   }
 
