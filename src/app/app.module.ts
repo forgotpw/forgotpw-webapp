@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { PasswordHintStoreFormComponent } from './password-hint-store-form/password-hint-store-form.component';
+import { SecretStoreFormComponent } from './secret-store-form/secret-store-form.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule } from '@angular/material/radio';
@@ -15,7 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MenuComponent } from './menu/menu.component';
-import { PasswordHintRetrieveFormComponent } from './password-hint-retrieve-form/password-hint-retrieve-form.component';
+import { SecretRetrieveFormComponent } from './secret-retrieve-form/secret-retrieve-form.component';
 import { FaqComponent } from './faq/faq.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -29,11 +29,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'store',
-    component: PasswordHintStoreFormComponent
+    component: SecretStoreFormComponent
   },
   {
     path: 'retrieve',
-    component: PasswordHintRetrieveFormComponent
+    component: SecretRetrieveFormComponent
   },
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -41,9 +41,9 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    PasswordHintStoreFormComponent,
+    SecretStoreFormComponent,
     MenuComponent,
-    PasswordHintRetrieveFormComponent,
+    SecretRetrieveFormComponent,
     FaqComponent,
     HeaderComponent,
     FooterComponent,

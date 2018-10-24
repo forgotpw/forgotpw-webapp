@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { PasswordHintStoreRequest } from '../password-secrets-service/password-hint-store-request';
+import { SecretStoreRequest } from '../password-secrets-service/secret-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { CodesService } from '../codes-service/codes.service'
 import { CodeGenerateRequest } from '../codes-service/code-generate-request';
@@ -9,13 +9,13 @@ import { timer } from 'rxjs';
 import { CodeEntryComponent } from '../code-entry/code-entry.component'
 
 @Component({
-  selector: 'app-password-hint-store-form',
-  templateUrl: './password-hint-store-form.component.html',
-  styleUrls: ['./password-hint-store-form.component.css'],
+  selector: 'app-secret-store-form',
+  templateUrl: './secret-store-form.component.html',
+  styleUrls: ['./secret-store-form.component.css'],
   //encapsulation: ViewEncapsulation.None,
   providers: [PasswordSecretsService, CodesService]
 })
-export class PasswordHintStoreFormComponent implements OnInit {
+export class SecretStoreFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   @ViewChild("codeEntry") codeEntry: CodeEntryComponent;
   private storeForm: FormGroup;
@@ -51,7 +51,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
           Validators.maxLength(20)
         ]
       ],
-      hint: [
+      secret: [
         '', [
           Validators.required,
           Validators.minLength(3),
@@ -64,10 +64,7 @@ export class PasswordHintStoreFormComponent implements OnInit {
   get f() { return this.storeForm.controls; }
 
   onSubmit() {
-    let codeRequest = new CodeGenerateRequest(
-      this.f.application.value,
-      this.f.phone.value
-    )
+    let codeRequest = new CodeGenerateRequest(this.f.phone.value)
     this.showCodeLoading = true;
     this.storeForm.disable();
     this.codesService.requestCode(codeRequest)
@@ -85,7 +82,6 @@ export class PasswordHintStoreFormComponent implements OnInit {
   onRequestNewCode() {
     this.showInvalidCode = false;
     let codeRequest = new CodeGenerateRequest(
-      this.f.application.value,
       this.f.phone.value
     )
     this.showCodeLoading = true;
@@ -111,13 +107,13 @@ export class PasswordHintStoreFormComponent implements OnInit {
       return;
     }
 
-    let model = new PasswordHintStoreRequest(
+    let model = new SecretStoreRequest(
       this.f.application.value,
-      this.f.hint.value,
+      this.f.secret.value,
       this.f.phone.value,
       code);
 
-    this.passwordSecretsService.storePasswordHint(model)
+    this.passwordSecretsService.storeSecret(model)
     .subscribe(res => {
 
       this.showSuccess = true;

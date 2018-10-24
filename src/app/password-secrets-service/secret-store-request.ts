@@ -1,7 +1,7 @@
-export class PasswordHintStoreRequest {
+export class SecretStoreRequest {
     constructor(
         public application: string,
-        public hint: string,
+        public secret: string,
         public phone: string,
         public confirmationCode: string,
       ) {  }

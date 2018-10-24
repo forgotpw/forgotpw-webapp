@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { PasswordHintStoreRequest } from './password-hint-store-request'
-import { PasswordHintRetrieveRequest } from './password-hint-retrieve-request'
+import { SecretStoreRequest } from './secret-store-request'
+import { SecretRetrieveRequest } from './secret-retrieve-request'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -16,7 +16,7 @@ export class PasswordSecretsService {
     private http: HttpClient
     ) {  }
 
-  storePasswordHint(pwhintStoreRequest: PasswordHintStoreRequest) {
+  storeSecret(secretStoreRequest: SecretStoreRequest) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -25,16 +25,16 @@ export class PasswordSecretsService {
     };
     
     const url = environment.apiUrl + '/secrets'
-    return this.http.put<PasswordHintStoreRequest>(
+    return this.http.put<SecretStoreRequest>(
       url,
-      pwhintStoreRequest)
+      secretStoreRequest)
       .pipe(
         catchError(this.handleError)
       );
 
   }
 
-  retrievePasswordHint(pwhintRetrieveRequest: PasswordHintRetrieveRequest) {
+  retrieveSecret(secretRetrieveRequest: SecretRetrieveRequest) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -43,9 +43,9 @@ export class PasswordSecretsService {
     };
     
     const url = environment.apiUrl + '/secrets'
-    return this.http.post<PasswordHintRetrieveRequest>(
+    return this.http.post<SecretRetrieveRequest>(
       url,
-      pwhintRetrieveRequest)
+      secretRetrieveRequest)
       .pipe(
         catchError(this.handleError)
       );

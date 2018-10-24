@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { PasswordHintRetrieveRequest } from '../password-secrets-service/password-hint-retrieve-request';
+import { SecretRetrieveRequest } from '../password-secrets-service/secret-retrieve-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
 @Component({
-  selector: 'app-password-hint-retrieve-form',
-  templateUrl: './password-hint-retrieve-form.component.html',
-  styleUrls: ['./password-hint-retrieve-form.component.css']
+  selector: 'app-secret-retrieve-form',
+  templateUrl: './secret-retrieve-form.component.html',
+  styleUrls: ['./secret-retrieve-form.component.css']
 })
-export class PasswordHintRetrieveFormComponent implements OnInit {
+export class SecretRetrieveFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private retrieveForm: FormGroup;
   showSuccess: boolean = false;
@@ -50,12 +50,12 @@ export class PasswordHintRetrieveFormComponent implements OnInit {
       return;
     }
 
-    let model = new PasswordHintRetrieveRequest('', '');
+    let model = new SecretRetrieveRequest('', '');
     model.application = this.f.application.value;
     model.phone = this.f.phone.value;
 
     this.spinner.show();
-    this.passwordSecretsService.retrievePasswordHint(model)
+    this.passwordSecretsService.retrieveSecret(model)
     .subscribe(() => {
       this.spinner.hide();
 
