@@ -110,10 +110,9 @@ export class SecretStoreFormComponent implements OnInit {
     let model = new SecretStoreRequest(
       this.f.application.value,
       this.f.secret.value,
-      this.f.phone.value,
-      code);
+      this.f.phone.value);
 
-    this.passwordSecretsService.storeSecret(model)
+    this.passwordSecretsService.storeSecret(model, code)
     .subscribe(res => {
 
       this.showSuccess = true;

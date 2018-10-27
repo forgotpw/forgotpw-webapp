@@ -16,18 +16,19 @@ export class PasswordSecretsService {
     private http: HttpClient
     ) {  }
 
-  storeSecret(secretStoreRequest: SecretStoreRequest) {
+  storeSecret(secretStoreRequest: SecretStoreRequest, verificationCode: string) {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'X-VerificationCode': `${verificationCode}`
       })
     };
-    
+
     const url = environment.apiUrl + '/secrets'
     return this.http.put<SecretStoreRequest>(
       url,
-      secretStoreRequest)
+      secretStoreRequest,
+      httpOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -36,12 +37,6 @@ export class PasswordSecretsService {
 
   retrieveSecret(secretRetrieveRequest: SecretRetrieveRequest) {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    
     const url = environment.apiUrl + '/secrets'
     return this.http.post<SecretRetrieveRequest>(
       url,
