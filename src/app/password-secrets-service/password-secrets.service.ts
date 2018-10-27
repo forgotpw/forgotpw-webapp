@@ -20,7 +20,7 @@ export class PasswordSecretsService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'X-VerificationCode': `${verificationCode}`
+        'X-FPW-VerificationCode': `${verificationCode}`
       })
     };
 
