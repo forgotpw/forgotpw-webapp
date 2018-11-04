@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { GeolocationService } from '../geolocation-service/geolocation.service';
 import { SecretStoreRequest } from '../password-secrets-service/secret-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { CodesService } from '../codes-service/codes.service'
@@ -26,8 +27,11 @@ export class SecretStoreFormComponent implements OnInit {
   showError: boolean = false;
   errorMessage: string = '';
   hideTyping: boolean = false;
+  initiatedCountryLookup: boolean = false;
+  countryCode: string = '';
 
   constructor(
+    private geolocationService: GeolocationService,
     private passwordSecretsService: PasswordSecretsService,
     private codesService: CodesService,
     private formBuilder: FormBuilder,
@@ -98,11 +102,26 @@ export class SecretStoreFormComponent implements OnInit {
     this.submitForm(codeEntered);
   }
 
-  OnHideTypingChange($event){
+  onHideTypingChange($event){
     this.hideTyping = $event.checked; 
   }
 
-  submitForm(code) {
+  onPhoneKeydown($event) {
+    // only do this once
+    if (!this.initiatedCountryLookup) {
+      this.initiatedCountryLookup = true;
+
+      // kick off the country code lookup here so the user doesn't
+      // have to wait for it when hitting submit
+      let countryCode = this.geolocationService.getCountryCode()
+      .subscribe(res => {
+        console.debug(`Geolocation API response: ${res}`);
+        this.countryCode = res;
+      })
+    }
+  }
+
+  submitForm(verificationCode) {
     if (this.storeForm.invalid) {
       return;
     }
@@ -112,7 +131,7 @@ export class SecretStoreFormComponent implements OnInit {
       this.f.secret.value,
       this.f.phone.value);
 
-    this.passwordSecretsService.storeSecret(model, code)
+    this.passwordSecretsService.storeSecret(model, verificationCode, this.countryCode)
     .subscribe(res => {
 
       this.showSuccess = true;

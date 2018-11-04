@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { GeolocationService } from '../geolocation-service/geolocation.service';
 import { SecretRetrieveRequest } from '../password-secrets-service/secret-retrieve-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,8 +16,11 @@ export class SecretRetrieveFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
   private retrieveForm: FormGroup;
   showSuccess: boolean = false;
+  initiatedCountryLookup: boolean = false;
+  countryCode: string = '';
 
   constructor(
+    private geolocationService: GeolocationService,
     private passwordSecretsService: PasswordSecretsService,
     private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
@@ -45,6 +49,21 @@ export class SecretRetrieveFormComponent implements OnInit {
 
   get f() { return this.retrieveForm.controls; }
 
+  onPhoneKeydown($event) {
+    // only do this once
+    if (!this.initiatedCountryLookup) {
+      this.initiatedCountryLookup = true;
+
+      // kick off the country code lookup here so the user doesn't
+      // have to wait for it when hitting submit
+      let countryCode = this.geolocationService.getCountryCode()
+      .subscribe(res => {
+        console.debug(`Geolocation API response: ${res}`);
+        this.countryCode = res;
+      })
+    }
+  }
+
   onSubmit(retrieveFormDirective: FormGroupDirective) {
     if (this.retrieveForm.invalid) {
       return;
@@ -55,7 +74,7 @@ export class SecretRetrieveFormComponent implements OnInit {
     model.phone = this.f.phone.value;
 
     this.spinner.show();
-    this.passwordSecretsService.retrieveSecret(model)
+    this.passwordSecretsService.retrieveSecret(model, this.countryCode)
     .subscribe(() => {
       this.spinner.hide();
 
