@@ -25,6 +25,7 @@ export class SecretStoreFormComponent implements OnInit {
   showCodeLoading: boolean = false;
   showInvalidCode: boolean = false;
   showError: boolean = false;
+  showTips: boolean = false;
   errorMessage: string = '';
   hideTyping: boolean = false;
   initiatedCountryLookup: boolean = false;
@@ -158,6 +159,14 @@ export class SecretStoreFormComponent implements OnInit {
   onCancel() {
     this.submitted.emit(false);
     this.router.navigate(['/']);
+  }
+
+  onClickTips() {
+    this.showTips = true;
+  }
+
+  onCloseTips() {
+    this.showTips = false;
   }
 
 }
