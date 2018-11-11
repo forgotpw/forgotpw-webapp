@@ -20,6 +20,8 @@ import { FaqComponent } from './faq/faq.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
+import { PricingComponent } from './pricing/pricing.component';
+import { RecommendedUsageComponent } from './recommended-usage/recommended-usage.component';
 
 const appRoutes: Routes = [
   //{ path: '',   redirectTo: '/app', pathMatch: 'full' },
@@ -47,7 +49,9 @@ const appRoutes: Routes = [
     FaqComponent,
     HeaderComponent,
     FooterComponent,
-    CodeEntryComponent
+    CodeEntryComponent,
+    PricingComponent,
+    RecommendedUsageComponent
   ],
   imports: [
     RouterModule.forRoot(

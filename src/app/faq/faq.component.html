@@ -8,44 +8,58 @@
       </div> <!-- .col-lg-12 -->
   
       <div class="col-lg-12">
-        <h3 class="sub-heading">Is this safe?</h3>
-        <p>We don't ask for your name, username, or full password.  We only only send SMS text
-          messages upon request containing just the password part requested, not
-          the website it is for, or any other information.  Don't give us your
-          full password, just the first part of the password.</p>
-      </div>
-
-      <div class="col-lg-12">
-        <h3 class="sub-heading">Why don't I have to log in?</h3>
-        <p>Your password parts are never displayed on the screen, the only way to
-          extract them is by text message to your cell phone.  Likewise, to store
-          a password part you will have to confirm by text message to your phone
+        <h3 class="sub-heading">Why don't I have to log in to use ForgotPW?</h3>
+        <p>Your passwords are never displayed on the screen, the only way to
+          extract them is by text message to your mobile phone.  Likewise, to store
+          a password you will have to confirm by text message to your phone
           that you originated the request.  This serves as a form of authentication
           instead of requiring yet one more password you're just going to forget.</p>
       </div>
 
       <div class="col-lg-12">
-        <h3 class="sub-heading">Can I remove all my stored password parts?</h3>
-        <p>Yes, click here to completely remove all data you have provided us.</p>
-      </div>
-
-      <div class="col-lg-12">
         <h3 class="sub-heading">Are SMS text messages secure?</h3>
-        <p>SMS text messages, like email, are not inherently secure and can
-          potentially be viewed in transit by sophisticated hackers.  Because of this
-          it is important that you never send us your full passwords.</p>
+        <p>There are vulnerabilities in the <a href="https://en.wikipedia.org/wiki/Signalling_System_No._7">
+          Signalling System No. 7</a> (SS7 network), which SMS relies on,
+          which can potentially allow messges to be illegally viewed in transit by
+          sophisticated hackers.  This is what they're referring to in the
+          movies when they say "we're not on a secure line".
+          <br/><br/>
+          Because of this we advise that you remember
+          a common password part and combine that with all passwords you store
+          with us (read more about our <a href="#recommended-usage">tips for increasing your security</a>),
+          or don't store passwords with us for financial websites such as
+          your bank.
+          <br/><br/>
+          Even so, you are probably already relying on
+          SMS text messages as a means of authentication to protect your most
+          important data.  If you use Google's Gmail for example,
+          and supply your mobile phone as a backup means of entering your account,
+          then a SMS text message alone will allow you to gain full access of
+          your email account, and with access to your email account, you then
+          have access to nearly all other of your accounts.</p>
       </div>
 
-      <a id="pricing"></a>
       <div class="col-lg-12">
-        <h3 class="sub-heading">What is the pricing for using this service?</h3>
-        <p>ForgotPW is currently a free service, though it will not likely
-          free forever.  It costs money to offer this service and if you find
-          value from it and would like to see it continue we need to cover
-          our costs.  We have not yet worked out what kind of pricing model
-          makes sense however the goal is to make the price so low that you
-          would not think twice about paying it.  Think a cup of coffee or two per year.
+        <h3 class="sub-heading">What security features are protecting my data?</h3>
+        <p>We don't ask for your name, username, or email address.  Your phone
+          number is your only identity in our system, which we pseudo anonymise
+          by creating a salted SHA-256 bit hash of your phone number and use
+          the resulting token throughout the rest of our system in place of
+          your phone number, where we store any data including your passwords.
+          For example, +1-212-555-1212 becomes something like UT37zdf322iuoVdkl@iR^GDSv4fgu93rsof3wdBJyJM.
+          <br/><br/>
+          Your passwords are encrypted with AES-256 bit encryption.  All data
+          is encrypted both in transit and at rest end to end in all parts of
+          our system.
+          <br/><br/>
+          If you want to peek under the hood and see for yourself, our source
+          code base is entirely open source, hosted at <a href="https://github.com/forgotpw">https://github.com/forgotpw</a>.
         </p>
+      </div>
+
+      <div class="col-lg-12">
+        <h3 class="sub-heading">Can I remove all my stored passwords?</h3>
+        <p>Yes, at any time you can <a href="#">completely remove all data</a> you have provided us.</p>
       </div>
   
     </div> <!-- .row -->
