@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GeolocationService } from '../geolocation-service/geolocation.service';
 import { SecretRetrieveRequest } from '../password-secrets-service/secret-retrieve-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
@@ -14,6 +14,8 @@ import { timer } from 'rxjs';
 })
 export class SecretRetrieveFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<boolean>();
+  @ViewChild("phoneInput") phoneInput: ElementRef;
+
   private retrieveForm: FormGroup;
   showSuccess: boolean = false;
   initiatedCountryLookup: boolean = false;
@@ -29,27 +31,35 @@ export class SecretRetrieveFormComponent implements OnInit {
   ngOnInit() {
     this.showSuccess = false;
 
+    this.getGeoLocation();
+
     this.retrieveForm = this.formBuilder.group({
-      application: [
-          '', [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100)
-          ]
-      ],
       phone: [
         '', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(20)
         ]
-      ]
+      ],
+      application: [
+        '', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ]
+    ]
     });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.phoneInput.nativeElement.focus();
+    }, 10);
   }
 
   get f() { return this.retrieveForm.controls; }
 
-  onPhoneKeydown($event) {
+  getGeoLocation() {
     // only do this once
     if (!this.initiatedCountryLookup) {
       this.initiatedCountryLookup = true;

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GeolocationService } from '../geolocation-service/geolocation.service';
 import { SecretStoreRequest } from '../password-secrets-service/secret-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { CodeEntryComponent } from '../code-entry/code-entry.component'
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-secret-store-form',
@@ -16,9 +17,10 @@ import { CodeEntryComponent } from '../code-entry/code-entry.component'
   //encapsulation: ViewEncapsulation.None,
   providers: [PasswordSecretsService, CodesService]
 })
-export class SecretStoreFormComponent implements OnInit {
+export class SecretStoreFormComponent implements OnInit, AfterViewInit {
   @Output() submitted = new EventEmitter<boolean>();
   @ViewChild("codeEntry") codeEntry: CodeEntryComponent;
+  @ViewChild("phoneInput") phoneInput: ElementRef;
   private storeForm: FormGroup;
   showSuccess: boolean = false;
   showCodeEntry: boolean = false;
@@ -41,20 +43,22 @@ export class SecretStoreFormComponent implements OnInit {
   ngOnInit() {
     this.showSuccess = false;
 
+    this.getGeoLocation();
+
     this.storeForm = this.formBuilder.group({
-      application: [
-          '', [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100)
-          ]
-      ],
       phone: [
         '', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(20)
         ]
+      ],
+      application: [
+          '', [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100)
+          ]
       ],
       secret: [
         '', [
@@ -64,8 +68,15 @@ export class SecretStoreFormComponent implements OnInit {
         ]
       ]
     });
+
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.phoneInput.nativeElement.focus();
+    }, 10);
+  }
+  
   get f() { return this.storeForm.controls; }
 
   onSubmit() {
@@ -107,7 +118,7 @@ export class SecretStoreFormComponent implements OnInit {
     this.hideTyping = $event.checked; 
   }
 
-  onPhoneKeydown($event) {
+  getGeoLocation() {
     // only do this once
     if (!this.initiatedCountryLookup) {
       this.initiatedCountryLookup = true;
