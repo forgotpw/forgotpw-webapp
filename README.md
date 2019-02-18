@@ -4,9 +4,21 @@ Angular front-end for forgotpw.com.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
-## Development server
+## Build within Docker
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```shell
+docker build -t forgotpw/forgotpw-webapp:latest .
+docker run -it -p 4430:443 forgotpw/forgotpw-webapp:latest
+```
+
+## Develop within Docker
+
+```shell
+docker build -t forgotpw/forgotpw-webapp:latest .
+docker run -it -p 4200:4200 -v $(pwd):/src --entrypoint npm forgotpw/forgotpw-webapp:latest start
+```
+
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Deploy - Dev
 
