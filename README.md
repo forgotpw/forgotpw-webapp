@@ -23,25 +23,29 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 ## Deploy - Dev
 
 ```shell
-ng build
 export AWS_ENV="dev" && export PROFILE="fpw$AWS_ENV"
-export SUBDOMAIN="www-dev"
-aws s3 cp \
-  ./dist/forgotpw-webapp/ \
-  s3://$SUBDOMAIN.forgotpw.com/ \
-  --recursive \
-  --profile $PROFILE
+
+docker build -t forgotpw/forgotpw-webapp:latest .
+
+# pip install iam-docker-run
+iam-docker-run \
+  --image forgotpw/forgotpw-webapp:latest \
+  --profile $PROFILE \
+  -e AWS_ENV=$AWS_ENV \
+  --full-entrypoint "bash /app/deploy.sh"
 ```
 
 ## Deploy - Prod
 
 ```shell
-ng build --prod --configuration=production
 export AWS_ENV="prod" && export PROFILE="fpw$AWS_ENV"
-export SUBDOMAIN="www"
-aws s3 cp \
-  ./dist/forgotpw-webapp/ \
-  s3://$SUBDOMAIN.forgotpw.com/ \
-  --recursive \
-  --profile $PROFILE
+
+docker build -t forgotpw/forgotpw-webapp:latest .
+
+# pip install iam-docker-run
+iam-docker-run \
+  --image forgotpw/forgotpw-webapp:latest \
+  --profile $PROFILE \
+  -e AWS_ENV=$AWS_ENV \
+  --full-entrypoint "bash /app/deploy.sh"
 ```

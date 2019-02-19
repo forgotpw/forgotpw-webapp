@@ -24,12 +24,15 @@ COPY ./package.json .
 
 RUN npm install -g @angular/cli
 
+# aws cli used to copy files to s3 in deploy mode
+RUN pip install awscli
+
 COPY . .
 
-RUN npm run-script build
+#RUN ng build  --prod --configuration=production
+RUN ng build
 
-RUN cp -r /app/dist/forgotpw-webapp/* /usr/share/nginx/html && \
-    rm -rf /app/dist
+RUN cp -r /app/dist/forgotpw-webapp/* /usr/share/nginx/html
 
 EXPOSE 4200
 EXPOSE 443
