@@ -94,14 +94,16 @@ export class SecretRetrieveFormComponent implements OnInit {
         retrieveFormDirective.reset();
         this.retrieveForm.reset();
         this.submitted.emit(true);
-        this.router.navigate(['/']);
+        //this.router.navigate(['/']);
+        window.location.href = 'https://www.forgotpw.com';
       });
     });
   }
 
   onCancel() {
     this.submitted.emit(false);
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
+    window.location.href = 'https://www.forgotpw.com';
   }
 
 }

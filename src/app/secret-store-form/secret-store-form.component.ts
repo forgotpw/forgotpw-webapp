@@ -151,7 +151,8 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
       const subscribe = successBannerTimer.subscribe(() => {
         this.storeForm.reset();
         this.submitted.emit(true);
-        this.router.navigate(['/']);
+        //this.router.navigate(['/']);
+        window.location.href = 'https://www.forgotpw.com';
       });
     },
     err => {
@@ -169,7 +170,8 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
 
   onCancel() {
     this.submitted.emit(false);
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
+    window.location.href = 'https://www.forgotpw.com';
   }
 
   onClickTips() {
