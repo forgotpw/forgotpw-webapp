@@ -12,10 +12,10 @@ fi
 
 if [ "$AWS_ENV" == "prod" ]; then
   ng build  --prod --configuration=production
-  export SUBDOMAIN="www"
+  export SUBDOMAIN="app"
 else
   ng build
-  export SUBDOMAIN="www-dev"
+  export SUBDOMAIN="app-dev"
 fi
 
 aws s3 cp \

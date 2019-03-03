@@ -1,3 +1,4 @@
+# route53 zone created in forgotpw-infrastructure git repo
 data "aws_route53_zone" "www" {
   name         = "${var.website_subdomain}.forgotpw.com"
   private_zone = false

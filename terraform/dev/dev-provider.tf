@@ -27,6 +27,10 @@ variable "apigateway_subdomain" {
   default = "api-dev"
 }
 
+variable "webapp_subdomain" {
+  default = "app-dev"
+}
+
 variable "website_subdomain" {
   default = "www-dev"
 }
