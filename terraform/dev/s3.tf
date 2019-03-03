@@ -3,7 +3,7 @@
 #   description = "The CIDR range allowed to view the website. Use 0.0.0.0/0 for prod."
 # }
 
-resource "aws_s3_bucket" "www" {
+resource "aws_s3_bucket" "app" {
     bucket = "${var.webapp_subdomain}.forgotpw.com"
     acl = "public-read"
 

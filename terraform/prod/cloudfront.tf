@@ -1,11 +1,11 @@
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    origin_id   = "${var.website_subdomain}.forgotpw.com"
-    domain_name = "${var.website_subdomain}.forgotpw.com.s3.amazonaws.com"
+    origin_id   = "${var.webapp_subdomain}.forgotpw.com"
+    domain_name = "${var.webapp_subdomain}.forgotpw.com.s3.amazonaws.com"
   }
 
   # If using route53 aliases for DNS we need to declare it here too, otherwise we'll get 403s.
-  aliases = ["${var.website_subdomain}.forgotpw.com"]
+  aliases = ["${var.webapp_subdomain}.forgotpw.com"]
 
   enabled             = true
   is_ipv6_enabled     = true
@@ -15,7 +15,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     # allow all methods for CORS
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${var.website_subdomain}.forgotpw.com"
+    target_origin_id = "${var.webapp_subdomain}.forgotpw.com"
 
     forwarded_values {
       query_string = true
@@ -51,6 +51,6 @@ resource "aws_cloudfront_distribution" "cdn" {
 }
 
 data "aws_acm_certificate" "www" {
-  domain   = "*.${var.website_subdomain}.forgotpw.com"
+  domain   = "*.${var.webapp_subdomain}.forgotpw.com"
   statuses = ["ISSUED"]
 }
