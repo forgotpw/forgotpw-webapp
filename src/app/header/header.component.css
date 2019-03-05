@@ -1,0 +1,38 @@
+.navbar{
+    display: block;
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    text-decoration: none;
+    border-radius: 0px;
+    border: 0px solid #fff;
+    z-index:1000;
+}
+.HeaderMain{
+    height:70px;
+    padding-top:12px;
+}
+.HeaderBkgColor{
+    background-color: #35454d;
+    opacity: 0.97;
+}
+.FloatingSubHeaderSpacer{
+    display:none;
+}
+.SiteLogoImage{
+    display:block;
+    height:50px;
+    width:auto;
+    margin:auto;
+}
+.LinkStyle{
+    color:#fff;
+    text-decoration: none;
+    cursor:pointer;
+    text-decoration: none;
+}
+.LinkStyle:hover{
+    color:#de1a25;
+    text-decoration: none;
+}

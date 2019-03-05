@@ -7,7 +7,6 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  selectedMode: string;
 
   constructor(private router: Router) {
     // https://codeburst.io/using-google-analytics-with-angular-25c93bffaa18
@@ -20,8 +19,5 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.router.url == '/') {
-      this.selectedMode = 'MENU';
-    }
   }
 }

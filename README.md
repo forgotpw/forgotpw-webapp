@@ -15,7 +15,7 @@ docker run -it -p 4430:443 forgotpw/forgotpw-webapp:latest
 
 ```shell
 docker build -t forgotpw/forgotpw-webapp:latest .
-docker run -it -p 4200:4200 -v $(pwd):/src --entrypoint npm forgotpw/forgotpw-webapp:latest start
+docker run -it -p 4200:4200 -v $(pwd)/src:/app/src --entrypoint npm forgotpw/forgotpw-webapp:latest start
 ```
 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

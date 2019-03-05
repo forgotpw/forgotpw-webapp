@@ -18,6 +18,9 @@ else
   export SUBDOMAIN="app-dev"
 fi
 
+# empty the bucket first
+aws s3 rm s3://$SUBDOMAIN.forgotpw.com --recursive
+
 aws s3 cp \
   ./dist/forgotpw-webapp/ \
   s3://$SUBDOMAIN.forgotpw.com/ \

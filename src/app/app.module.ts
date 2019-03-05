@@ -14,21 +14,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MenuComponent } from './menu/menu.component';
 import { SecretRetrieveFormComponent } from './secret-retrieve-form/secret-retrieve-form.component';
-import { FaqComponent } from './faq/faq.component';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
-import { PricingComponent } from './pricing/pricing.component';
 import { RecommendedUsageComponent } from './recommended-usage/recommended-usage.component';
 
 const appRoutes: Routes = [
   //{ path: '',   redirectTo: '/app', pathMatch: 'full' },
-  {
-    path: '',
-    component: MenuComponent
-  },
+  // {
+  //   path: '',
+  //   component: MenuComponent
+  // },
   {
     path: 'store',
     component: SecretStoreFormComponent
@@ -44,13 +40,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SecretStoreFormComponent,
-    MenuComponent,
     SecretRetrieveFormComponent,
-    FaqComponent,
     HeaderComponent,
-    FooterComponent,
     CodeEntryComponent,
-    PricingComponent,
     RecommendedUsageComponent
   ],
   imports: [
