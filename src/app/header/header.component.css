@@ -1,12 +1,10 @@
 .navbar{
     display: block;
     overflow: hidden;
-    position: fixed;
-    top: 0px;
-    width: 100%;
+    width: 100;
     text-decoration: none;
-    border-radius: 0px;
-    border: 0px solid #fff;
+    border-radius: 0;
+    border: 0 solid #fff;
     z-index:1000;
 }
 .HeaderMain{
