@@ -147,6 +147,7 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
     .subscribe(res => {
 
       this.showSuccess = true;
+      this.fireAdwordsConversion();
       const successBannerTimer = timer(3000);
       const subscribe = successBannerTimer.subscribe(() => {
         this.storeForm.reset();
@@ -166,6 +167,11 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
       this.codeEntry.reset();
 
     });
+  }
+
+  fireAdwordsConversion() {
+    console.log('Firing adwords conversion...');
+    (<any>window).gtag('event', 'conversion', {'send_to': 'AW-758048748/wt4sCJeIvZYBEOzPu-kC'});
   }
 
   onCancel() {
