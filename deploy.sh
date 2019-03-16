@@ -14,7 +14,7 @@ if [ "$AWS_ENV" == "prod" ]; then
   ng build  --prod --configuration=production
   export SUBDOMAIN="app"
 else
-  ng build
+  ng build --configuration=development
   export SUBDOMAIN="app-dev"
 fi
 

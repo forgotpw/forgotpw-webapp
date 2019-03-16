@@ -26,6 +26,7 @@ export class PasswordSecretsService {
     };
 
     const url = environment.apiUrl + '/secrets'
+    console.log(url)
     return this.http.put<SecretStoreRequest>(
       url,
       secretStoreRequest,

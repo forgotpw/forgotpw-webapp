@@ -24,6 +24,7 @@ export class CodesService {
     };
     
     const url = environment.apiUrl + '/codes'
+    console.log(url)
     return this.http.post<CodeGenerateRequest>(
       url,
       codeGenerateRequest)
