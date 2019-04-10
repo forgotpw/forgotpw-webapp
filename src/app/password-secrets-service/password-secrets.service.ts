@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { SecretStoreRequest } from './secret-store-request'
+import { SecretStoreRequest, SecretStoreAridRequest } from './secret-store-request'
 import { SecretRetrieveRequest } from './secret-retrieve-request'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -17,7 +17,6 @@ export class PasswordSecretsService {
     ) {  }
 
   storeSecret(secretStoreRequest: SecretStoreRequest, verificationCode: string, countryCode: string) {
-
     const httpOptions = {
       headers: new HttpHeaders({
         'X-FPW-VerificationCode': `${verificationCode}`,
@@ -34,11 +33,20 @@ export class PasswordSecretsService {
       .pipe(
         catchError(this.handleError)
       );
+  }
 
+  storeSecretViaArid(arid: string, secretStoreAridRequest: SecretStoreAridRequest) {
+    const url = environment.apiUrl + '/authorizedRequests'
+    console.log(url)
+    return this.http.put<SecretStoreAridRequest>(
+      url,
+      secretStoreAridRequest)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   retrieveSecret(secretRetrieveRequest: SecretRetrieveRequest, countryCode: string) {
-
     const httpOptions = {
       headers: new HttpHeaders({
         'X-FPW-CountryCode': `${countryCode}`
@@ -50,6 +58,15 @@ export class PasswordSecretsService {
       url,
       secretRetrieveRequest,
       httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  retrieveAuthorizedRequest(arid: string) {
+    const url = environment.apiUrl + '/authorizedRequests/' + arid;
+    return this.http.get<SecretRetrieveRequest>(
+      url)
       .pipe(
         catchError(this.handleError)
       );

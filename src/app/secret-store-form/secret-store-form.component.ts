@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GeolocationService } from '../geolocation-service/geolocation.service';
-import { SecretStoreRequest } from '../password-secrets-service/secret-store-request';
+import { SecretStoreRequest, SecretStoreAridRequest } from '../password-secrets-service/secret-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { CodesService } from '../codes-service/codes.service'
 import { CodeGenerateRequest } from '../codes-service/code-generate-request';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { timer } from 'rxjs';
 import { CodeEntryComponent } from '../code-entry/code-entry.component'
 import { MatInput } from '@angular/material/input';
@@ -32,43 +32,56 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
   hideTyping: boolean = false;
   initiatedCountryLookup: boolean = false;
   countryCode: string = '';
+  isAridMode: boolean = false;
+  arid: string = '';
 
   constructor(
     private geolocationService: GeolocationService,
     private passwordSecretsService: PasswordSecretsService,
     private codesService: CodesService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) {
+      this.arid = this.route.snapshot.queryParamMap.get('arid');
+      this.isAridMode = this.arid ? true : false;
+    }
 
   ngOnInit() {
     this.showSuccess = false;
 
     this.getGeoLocation();
 
-    this.storeForm = this.formBuilder.group({
-      phone: [
-        '', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(20)
-        ]
-      ],
-      application: [
+    let formComponents = {};
+
+    // when in arid mode the secret is the only field needed since we already know
+    // the phone number and application from the chat session, otherwise we need
+    // to add form controls for those fields
+    if (!this.isAridMode) {
+      formComponents['phone'] = [
+            '', [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(20)
+            ]
+          ];
+      formComponents['application'] = [
+            '', [
+              Validators.required,
+              Validators.minLength(3),
+              Validators.maxLength(100)
+           ]
+         ];
+    }
+
+    formComponents['secret'] = [
           '', [
             Validators.required,
             Validators.minLength(3),
             Validators.maxLength(100)
           ]
-      ],
-      secret: [
-        '', [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100)
-        ]
-      ]
-    });
+        ];
 
+    this.storeForm = this.formBuilder.group(formComponents);
   }
 
   ngAfterViewInit() {
@@ -166,6 +179,37 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
       }
       this.codeEntry.reset();
 
+    });
+  }
+
+  submitAridForm() {
+    if (this.storeForm.invalid) {
+      return;
+    }
+
+    let model = new SecretStoreAridRequest(this.f.secret.value);
+
+    this.passwordSecretsService.storeSecretViaArid(this.arid, this.f.secret.value)
+    .subscribe(res => {
+
+      this.showSuccess = true;
+      this.fireAdwordsConversion();
+      const successBannerTimer = timer(3000);
+      const subscribe = successBannerTimer.subscribe(() => {
+        this.storeForm.reset();
+        this.submitted.emit(true);
+        //this.router.navigate(['/']);
+        window.location.href = 'https://www.forgotpw.com';
+      });
+    },
+    err => {
+      console.log(err);
+      if (err.status && err.status == 401) {
+        this.showInvalidCode = true;
+      } else {
+        this.showError = true;
+        this.errorMessage = err.message;
+      }
     });
   }
 

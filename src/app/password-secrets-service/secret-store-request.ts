@@ -5,3 +5,9 @@ export class SecretStoreRequest {
         public phone: string
       ) {  }
 }
+
+export class SecretStoreAridRequest {
+  constructor(
+      public secret: string
+    ) {  }
+}
