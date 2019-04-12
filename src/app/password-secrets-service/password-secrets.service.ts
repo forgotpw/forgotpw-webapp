@@ -24,8 +24,8 @@ export class PasswordSecretsService {
       })
     };
 
-    const url = environment.apiUrl + '/secrets'
-    console.log(url)
+    const url = environment.apiUrl + '/secrets';
+    console.log(url);
     return this.http.put<SecretStoreRequest>(
       url,
       secretStoreRequest,
@@ -36,11 +36,11 @@ export class PasswordSecretsService {
   }
 
   storeSecretViaArid(arid: string, secretStoreAridRequest: SecretStoreAridRequest) {
-    const url = environment.apiUrl + '/authorizedRequests'
-    console.log(url)
+    const url = environment.apiUrl + '/authorizedRequests/' + arid;
+    console.log(url);
     return this.http.put<SecretStoreAridRequest>(
       url,
-      secretStoreAridRequest)
+      { secret: secretStoreAridRequest })
       .pipe(
         catchError(this.handleError)
       );

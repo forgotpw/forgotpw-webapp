@@ -151,6 +151,14 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    if (this.isAridMode) {
+      this.submitAridForm();
+    } else {
+      this.submitVerificationFlowForm(verificationCode);
+    }
+  }
+
+  submitVerificationFlowForm(verificationCode) {
     let model = new SecretStoreRequest(
       this.f.application.value,
       this.f.secret.value,
