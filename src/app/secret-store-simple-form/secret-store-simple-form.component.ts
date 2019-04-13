@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { SecretStoreRequest, SecretStoreAridRequest } from '../password-secrets-service/secret-store-request';
+import { SecretStoreAridRequest } from '../password-secrets-service/secret-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -85,10 +85,10 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
       this.showSuccess = true;
       this.fireAdwordsConversion();
 
-      const intervalSub = interval(1000)
-      .subscribe((val) => {
-        this.countdownValue--;
-      });
+      // const intervalSub = interval(1000)
+      // .subscribe((val) => {
+      //   this.countdownValue--;
+      // });
 
       // const successBannerTimer = timer(3000);
       // const subscribe = successBannerTimer.subscribe(() => {

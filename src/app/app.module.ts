@@ -19,6 +19,7 @@ import { HeaderComponent } from './header/header.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
 import { RecommendedUsageComponent } from './recommended-usage/recommended-usage.component';
 import { SecretStoreSimpleFormComponent } from './secret-store-simple-form/secret-store-simple-form.component';
+import { SecretRetrieveSimpleFormComponent } from './secret-retrieve-simple-form/secret-retrieve-simple-form.component';
 
 const appRoutes: Routes = [
   //{ path: '',   redirectTo: '/app', pathMatch: 'full' },
@@ -31,11 +32,15 @@ const appRoutes: Routes = [
     component: SecretStoreSimpleFormComponent
   },
   {
-    path: 'store-phone',
+    path: 'retrieve',
+    component: SecretRetrieveSimpleFormComponent
+  },
+  {
+    path: 'store-full',
     component: SecretStoreFormComponent
   },
   {
-    path: 'retrieve-phone',
+    path: 'retrieve-full',
     component: SecretRetrieveFormComponent
   },
   // { path: '**', component: PageNotFoundComponent }
@@ -49,7 +54,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     CodeEntryComponent,
     RecommendedUsageComponent,
-    SecretStoreSimpleFormComponent
+    SecretStoreSimpleFormComponent,
+    SecretRetrieveSimpleFormComponent
   ],
   imports: [
     RouterModule.forRoot(
