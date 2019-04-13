@@ -3,7 +3,7 @@ import { SecretStoreRequest, SecretStoreAridRequest } from '../password-secrets-
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { timer } from 'rxjs';
+import { Observable, timer, interval } from 'rxjs';
 
 @Component({
   selector: 'app-secret-store-simple-form',
@@ -23,6 +23,8 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
   errorMessage: string = '';
   hideTyping: boolean = false;
   arid: string = '';
+  countdownValue: number = 5;
+  rawApplication: string = '';
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -36,7 +38,6 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
     this.showSuccess = false;
 
     let formComponents = {};
-
     formComponents['secret'] = [
           '', [
             Validators.required,
@@ -46,6 +47,18 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
         ];
 
     this.storeForm = this.formBuilder.group(formComponents);
+
+    this.passwordSecretsService.retrieveAuthorizedRequest(this.arid).subscribe((aridData) => {
+      this.rawApplication = aridData['rawApplication'];
+    },
+    err => {
+      this.showError = true;
+      if (err.status == 403 || err.status == 404) {
+        this.errorMessage = 'This request is expired.'
+      } else {
+        this.errorMessage = err.message; // JSON.stringify(err);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -71,13 +84,19 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
 
       this.showSuccess = true;
       this.fireAdwordsConversion();
-      const successBannerTimer = timer(3000);
-      const subscribe = successBannerTimer.subscribe(() => {
-        this.storeForm.reset();
-        this.submitted.emit(true);
-        //this.router.navigate(['/']);
-        window.location.href = 'https://www.forgotpw.com';
+
+      const intervalSub = interval(1000)
+      .subscribe((val) => {
+        this.countdownValue--;
       });
+
+      // const successBannerTimer = timer(3000);
+      // const subscribe = successBannerTimer.subscribe(() => {
+      //   this.storeForm.reset();
+      //   this.submitted.emit(true);
+      //   // produces the error "Scripts may close only the windows that were opened by it."
+      //   // window.close();
+      // });
     },
     err => {
       console.log(err);
