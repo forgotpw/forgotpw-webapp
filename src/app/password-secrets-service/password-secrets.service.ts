@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { SecretStoreRequest, SecretStoreAridRequest } from './secret-store-request'
 import { SecretRetrieveRequest } from './secret-retrieve-request'
+import { AridSecretRetrieveRequest } from './arid-secret-retrieve-request'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -64,8 +65,17 @@ export class PasswordSecretsService {
   }
 
   retrieveAuthorizedRequest(arid: string) {
-    const url = environment.apiUrl + '/authorizedRequests/' + arid;
+    const url = `${environment.apiUrl}/authorizedRequests/${arid}`;
     return this.http.get<SecretRetrieveRequest>(
+      url)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  retrieveAuthorizedRequestSecret(arid: string) {
+    const url = `${environment.apiUrl}/authorizedRequests/${arid}/secret`;
+    return this.http.get<any>(
       url)
       .pipe(
         catchError(this.handleError)

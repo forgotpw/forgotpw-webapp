@@ -12,6 +12,7 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
   showError: boolean = false;
   errorMessage: string = '';
   rawApplication: string = '';
+  secret: string = '';
   countdownValue: number = 5;
 
   constructor(
@@ -21,8 +22,11 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.passwordSecretsService.retrieveAuthorizedRequest(this.arid).subscribe((aridData) => {
-      this.rawApplication = aridData['rawApplication'];
+    this.passwordSecretsService.retrieveAuthorizedRequestSecret(this.arid).subscribe((secretData) => {
+      // > this.secret = JSON.stringify(secretData);
+      // > {"secret":"my secret","rawApplication":"testapp"}
+      this.secret = secretData['secret'];
+      this.rawApplication = secretData['rawApplication'];
     },
     err => {
       this.showError = true;
