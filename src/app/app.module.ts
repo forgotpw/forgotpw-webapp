@@ -28,19 +28,19 @@ const appRoutes: Routes = [
   //   component: MenuComponent
   // },
   {
-    path: 'store',
+    path: 'set',
     component: SecretStoreSimpleFormComponent
   },
   {
-    path: 'retrieve',
+    path: 'get',
     component: SecretRetrieveSimpleFormComponent
   },
   {
-    path: 'store-full',
+    path: 'store',
     component: SecretStoreFormComponent
   },
   {
-    path: 'retrieve-full',
+    path: 'retrieve',
     component: SecretRetrieveFormComponent
   },
   // { path: '**', component: PageNotFoundComponent }
