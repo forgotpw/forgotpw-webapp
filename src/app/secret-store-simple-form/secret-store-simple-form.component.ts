@@ -3,7 +3,6 @@ import { SecretStoreAridRequest } from '../password-secrets-service/secret-store
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, timer, interval } from 'rxjs';
 
 @Component({
   selector: 'app-secret-store-simple-form',
@@ -23,7 +22,6 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
   errorMessage: string = '';
   hideTyping: boolean = false;
   arid: string = '';
-  countdownValue: number = 5;
   rawApplication: string = '';
 
   constructor(
@@ -84,11 +82,6 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
 
       this.showSuccess = true;
       this.fireAdwordsConversion();
-
-      // const intervalSub = interval(1000)
-      // .subscribe((val) => {
-      //   this.countdownValue--;
-      // });
 
       // const successBannerTimer = timer(3000);
       // const subscribe = successBannerTimer.subscribe(() => {

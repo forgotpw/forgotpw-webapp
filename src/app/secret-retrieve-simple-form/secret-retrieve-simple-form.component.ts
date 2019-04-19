@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
+import { timer, interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-secret-retrieve-simple-form',
@@ -8,12 +10,17 @@ import { PasswordSecretsService } from '../password-secrets-service/password-sec
   styleUrls: ['./secret-retrieve-simple-form.component.css']
 })
 export class SecretRetrieveSimpleFormComponent implements OnInit {
+  @ViewChild("passwordInput") passwordInput: ElementRef;
   arid: string = '';
   showError: boolean = false;
   errorMessage: string = '';
   rawApplication: string = '';
   secret: string = '';
-  countdownValue: number = 5;
+  countdownMax: number = 30;
+  countdownValue: number = 30;
+  disappearProgressValue: number = 100;
+  showLoading: boolean = false;
+  showdisappeared: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -22,11 +29,30 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showLoading = true;
     this.passwordSecretsService.retrieveAuthorizedRequestSecret(this.arid).subscribe((secretData) => {
       // > this.secret = JSON.stringify(secretData);
       // > {"secret":"my secret","rawApplication":"testapp"}
       this.secret = secretData['secret'];
       this.rawApplication = secretData['rawApplication'];
+      const animationTimer = timer(750);
+      const subscribe = animationTimer.subscribe(() => {
+        this.showLoading = false;
+
+        const disappearPasswordInterval = interval(1000);
+        const cancelIntervalTimer$ = timer((this.countdownMax + 1) * 1000);
+        const example = disappearPasswordInterval.pipe(takeUntil(cancelIntervalTimer$));
+        const subscribe = example.subscribe(val => {
+          this.countdownValue--;
+          this.disappearProgressValue = Math.round((this.countdownValue / this.countdownMax) * 100);
+        });
+        cancelIntervalTimer$.subscribe(() => {
+          this.passwordInput.nativeElement.value = '';
+          this.showdisappeared = true;
+        })
+
+      });
+
     },
     err => {
       this.showError = true;
@@ -36,7 +62,13 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
         this.errorMessage = err.message; // JSON.stringify(err);
       }
     });
+  }
 
+  onCopy() {
+    // select all text in the input box
+    this.passwordInput.nativeElement.select();
+    // copy to clipboard
+    document.execCommand("copy");
   }
 
 }

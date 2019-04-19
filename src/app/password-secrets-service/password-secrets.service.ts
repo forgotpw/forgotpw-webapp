@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { SecretStoreRequest, SecretStoreAridRequest } from './secret-store-request'
 import { SecretRetrieveRequest } from './secret-retrieve-request'
-import { AridSecretRetrieveRequest } from './arid-secret-retrieve-request'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
