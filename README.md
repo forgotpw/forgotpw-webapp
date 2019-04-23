@@ -22,6 +22,8 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 ## Deploy - Dev
 
+Apply Terraform, then execute deployment script:
+
 ```shell
 export AWS_ENV="dev" && export PROFILE="fpw$AWS_ENV"
 
@@ -36,6 +38,8 @@ iam-docker-run \
 ```
 
 ## Deploy - Prod
+
+Apply Terraform, then execute deployment script:
 
 ```shell
 export AWS_ENV="prod" && export PROFILE="fpw$AWS_ENV"

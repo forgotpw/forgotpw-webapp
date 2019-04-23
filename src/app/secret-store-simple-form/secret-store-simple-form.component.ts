@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, AfterVi
 import { SecretStoreAridRequest } from '../password-secrets-service/secret-store-request';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-secret-store-simple-form',
@@ -15,8 +15,6 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
   @ViewChild("secretInput") secretInput: ElementRef;
   private storeForm: FormGroup;
   showSuccess: boolean = false;
-  showCodeEntry: boolean = false;
-  showCodeLoading: boolean = false;
   showError: boolean = false;
   showTips: boolean = false;
   errorMessage: string = '';
@@ -29,11 +27,24 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute) {
-      this.arid = this.route.snapshot.queryParamMap.get('arid');
+      router.events.subscribe((val) => {
+        // if the url is changed, be sure to reset the form to start over with the new value
+        if (val instanceof NavigationEnd) {
+          console.log('Route changed, resetting...')
+          this.ngOnInit();
+          this.ngAfterViewInit();
+        }
+      });
     }
 
   ngOnInit() {
     this.showSuccess = false;
+    this.showError = false;
+    this.showTips = false;
+    this.errorMessage = '';
+    this.hideTyping = false;
+    this.rawApplication = '';
+    this.arid = this.route.snapshot.queryParamMap.get('arid');
 
     let formComponents = {};
     formComponents['secret'] = [
@@ -107,11 +118,6 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
   fireAdwordsConversion() {
     console.log('Firing adwords conversion...');
     (<any>window).gtag('event', 'conversion', {'send_to': 'AW-758048748/wt4sCJeIvZYBEOzPu-kC'});
-  }
-
-  onCancel() {
-    this.submitted.emit(false);
-    window.location.href = 'https://www.forgotpw.com';
   }
 
   onClickTips() {

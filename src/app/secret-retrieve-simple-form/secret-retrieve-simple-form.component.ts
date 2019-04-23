@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
 import { timer, interval } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,20 +16,37 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
   errorMessage: string = '';
   rawApplication: string = '';
   secret: string = '';
-  countdownMax: number = 30;
-  countdownValue: number = 30;
-  disappearProgressValue: number = 100;
+  countdownMax: number;
+  countdownValue: number;
+  disappearProgressValue: number;
   showLoading: boolean = false;
   showdisappeared: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
+    private router: Router,
     private route: ActivatedRoute) {
-    this.arid = this.route.snapshot.queryParamMap.get('arid');
+      router.events.subscribe((val) => {
+        // if the url is changed, be sure to reset the form to start over with the new value
+        if (val instanceof NavigationEnd) {
+          console.log('Route changed, resetting...')
+          this.ngOnInit();
+        }
+      });  
   }
 
   ngOnInit() {
     this.showLoading = true;
+    this.showError = false;
+    this.errorMessage = '';
+    this.rawApplication = '';
+    this.secret = '';
+    this.countdownMax = 30;
+    this.countdownValue = 30;
+    this.disappearProgressValue = 100;
+    this.showdisappeared = false;
+    this.arid = this.route.snapshot.queryParamMap.get('arid');
+
     this.passwordSecretsService.retrieveAuthorizedRequestSecret(this.arid).subscribe((secretData) => {
       // > this.secret = JSON.stringify(secretData);
       // > {"secret":"my secret","rawApplication":"testapp"}
@@ -59,7 +76,7 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
       if (err.status == 403 || err.status == 404) {
         this.errorMessage = 'This request is expired.'
       } else {
-        this.errorMessage = err.message; // JSON.stringify(err);
+        this.errorMessage = `Err: ${err.status}: ${err.message}`; // JSON.stringify(err);
       }
     });
   }
