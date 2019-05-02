@@ -74,7 +74,7 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
     err => {
       this.showError = true;
       if (err.status == 403 || err.status == 404) {
-        this.errorMessage = 'This request is expired.'
+        this.errorMessage = 'This request is expired (Please re-issue your request via chat to get a new link).'
       } else {
         this.errorMessage = `Err: ${err.status}: ${err.message}`; // JSON.stringify(err);
       }

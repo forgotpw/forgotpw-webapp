@@ -20,7 +20,7 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
   errorMessage: string = '';
   hideTyping: boolean = false;
   arid: string = '';
-  rawApplication: string = '';
+  isFirstTime: boolean = false;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -43,7 +43,6 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
     this.showTips = false;
     this.errorMessage = '';
     this.hideTyping = false;
-    this.rawApplication = '';
     this.arid = this.route.snapshot.queryParamMap.get('arid');
 
     let formComponents = {};
@@ -58,12 +57,15 @@ export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
     this.storeForm = this.formBuilder.group(formComponents);
 
     this.passwordSecretsService.retrieveAuthorizedRequest(this.arid).subscribe((aridData) => {
-      this.rawApplication = aridData['rawApplication'];
+      this.isFirstTime = aridData['isFirstTime'];
+      if (this.isFirstTime) {
+        this.showTips = true;
+      }
     },
     err => {
       this.showError = true;
       if (err.status == 403 || err.status == 404) {
-        this.errorMessage = 'This request is expired.'
+        this.errorMessage = 'This request is expired (Please re-issue your request via chat to get a new link).'
       } else {
         this.errorMessage = err.message; // JSON.stringify(err);
       }
