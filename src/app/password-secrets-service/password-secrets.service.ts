@@ -81,6 +81,16 @@ export class PasswordSecretsService {
       );
   }
 
+  autogenerateSecret(languageCode: string) {
+    const url = environment.apiUrl + '/secrets/autogen'
+    return this.http.post<any>(
+      url,
+      { languageCode })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
