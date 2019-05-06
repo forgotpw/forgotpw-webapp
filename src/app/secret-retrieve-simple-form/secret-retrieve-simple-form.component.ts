@@ -52,7 +52,7 @@ export class SecretRetrieveSimpleFormComponent implements OnInit {
       // > {"secret":"my secret","rawApplication":"testapp"}
       this.secret = secretData['secret'];
       this.rawApplication = secretData['rawApplication'];
-      const animationTimer = timer(500);
+      const animationTimer = timer(250);
       const subscribe = animationTimer.subscribe(() => {
         this.showLoading = false;
 
