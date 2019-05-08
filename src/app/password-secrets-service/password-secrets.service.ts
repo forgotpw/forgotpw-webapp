@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { SecretStoreRequest, SecretStoreAridRequest } from './secret-store-request'
-import { SecretRetrieveRequest } from './secret-retrieve-request'
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { SecretStoreAridRequest } from './secret-store-request'
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -15,25 +13,6 @@ export class PasswordSecretsService {
   constructor(
     private http: HttpClient
     ) {  }
-
-  storeSecret(secretStoreRequest: SecretStoreRequest, verificationCode: string, countryCode: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'X-FPW-VerificationCode': `${verificationCode}`,
-        'X-FPW-CountryCode': `${countryCode}`
-      })
-    };
-
-    const url = environment.apiUrl + '/secrets';
-    console.log(url);
-    return this.http.put<SecretStoreRequest>(
-      url,
-      secretStoreRequest,
-      httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
 
   storeSecretViaArid(arid: string, secretStoreAridRequest: SecretStoreAridRequest) {
     const url = environment.apiUrl + '/authorizedRequests/' + arid;
@@ -46,26 +25,9 @@ export class PasswordSecretsService {
       );
   }
 
-  retrieveSecret(secretRetrieveRequest: SecretRetrieveRequest, countryCode: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'X-FPW-CountryCode': `${countryCode}`
-      })
-    };
-
-    const url = environment.apiUrl + '/secrets'
-    return this.http.post<SecretRetrieveRequest>(
-      url,
-      secretRetrieveRequest,
-      httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
   retrieveAuthorizedRequest(arid: string) {
     const url = `${environment.apiUrl}/authorizedRequests/${arid}`;
-    return this.http.get<SecretRetrieveRequest>(
+    return this.http.get<any>(
       url)
       .pipe(
         catchError(this.handleError)

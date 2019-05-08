@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { SecretStoreFormComponent } from './secret-store-form/secret-store-form.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule } from '@angular/material/radio';
@@ -14,7 +13,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SecretRetrieveFormComponent } from './secret-retrieve-form/secret-retrieve-form.component';
 import { HeaderComponent } from './header/header.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
 import { RecommendedUsageComponent } from './recommended-usage/recommended-usage.component';
@@ -35,22 +33,12 @@ const appRoutes: Routes = [
     path: 'get',
     component: SecretRetrieveSimpleFormComponent
   },
-  {
-    path: 'store',
-    component: SecretStoreFormComponent
-  },
-  {
-    path: 'retrieve',
-    component: SecretRetrieveFormComponent
-  },
   // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SecretStoreFormComponent,
-    SecretRetrieveFormComponent,
     HeaderComponent,
     CodeEntryComponent,
     RecommendedUsageComponent,
