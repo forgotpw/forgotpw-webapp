@@ -54,9 +54,9 @@ iam-docker-run \
   --full-entrypoint "bash /app/deploy.sh"
 ```
 
-## Mock an Authorized Request for testing the Simple Forms
+## Mock an Authorized Request for testing the store and retrieve forms
 
-Use the mockAuthorizedRequest function from the forgotpw-restapi-lambda git repo to generate a valid arid to use for testing the simple forms which rely on this existing.  Normally this would be created by the forgotpw-lex-handler-lambda service from interacting with the Store Password intent with the Lex bot, which generates a hyperlink to this web app with the arid on the querystring.
+Use the mockAuthorizedRequest function from the forgotpw-restapi-lambda git repo to generate a valid arid to use for testing the forms which rely on this existing.  Normally this would be created by the forgotpw-lex-handler-lambda service from interacting with the Store Password intent with the Lex bot, which generates a hyperlink to this web app with the arid on the querystring.
 
 *NOTE: mockAuthorizedRequest.js is in the `forgotpw-restapi-lambda` git repo.  Clone that repo and run the below command from that path.*
 

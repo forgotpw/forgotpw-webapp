@@ -5,12 +5,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'app-secret-store-simple-form',
-  templateUrl: './secret-store-simple-form.component.html',
-  styleUrls: ['./secret-store-simple-form.component.css'],
+  selector: 'app-secret-store-form',
+  templateUrl: './secret-store-form.component.html',
+  styleUrls: ['./secret-store-form.component.css'],
   providers: [PasswordSecretsService]
 })
-export class SecretStoreSimpleFormComponent implements OnInit, AfterViewInit {
+export class SecretStoreFormComponent implements OnInit, AfterViewInit {
   @Output() submitted = new EventEmitter<boolean>();
   @ViewChild("secretInput") secretInput: ElementRef;
   private storeForm: FormGroup;

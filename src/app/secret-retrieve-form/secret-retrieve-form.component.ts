@@ -5,11 +5,11 @@ import { timer, interval } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-secret-retrieve-simple-form',
-  templateUrl: './secret-retrieve-simple-form.component.html',
-  styleUrls: ['./secret-retrieve-simple-form.component.css']
+  selector: 'app-secret-retrieve-form',
+  templateUrl: './secret-retrieve-form.component.html',
+  styleUrls: ['./secret-retrieve-form.component.css']
 })
-export class SecretRetrieveSimpleFormComponent implements OnInit {
+export class SecretRetrieveFormComponent implements OnInit {
   @ViewChild("passwordInput") passwordInput: ElementRef;
   arid: string = '';
   showError: boolean = false;

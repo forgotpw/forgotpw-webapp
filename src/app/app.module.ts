@@ -16,8 +16,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HeaderComponent } from './header/header.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
 import { RecommendedUsageComponent } from './recommended-usage/recommended-usage.component';
-import { SecretStoreSimpleFormComponent } from './secret-store-simple-form/secret-store-simple-form.component';
-import { SecretRetrieveSimpleFormComponent } from './secret-retrieve-simple-form/secret-retrieve-simple-form.component';
+import { SecretStoreFormComponent } from './secret-store-form/secret-store-form.component';
+import { SecretRetrieveFormComponent } from './secret-retrieve-form/secret-retrieve-form.component';
 
 const appRoutes: Routes = [
   //{ path: '',   redirectTo: '/app', pathMatch: 'full' },
@@ -27,11 +27,11 @@ const appRoutes: Routes = [
   // },
   {
     path: 'set',
-    component: SecretStoreSimpleFormComponent
+    component: SecretStoreFormComponent
   },
   {
     path: 'get',
-    component: SecretRetrieveSimpleFormComponent
+    component: SecretRetrieveFormComponent
   },
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -42,8 +42,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     CodeEntryComponent,
     RecommendedUsageComponent,
-    SecretStoreSimpleFormComponent,
-    SecretRetrieveSimpleFormComponent
+    SecretStoreFormComponent,
+    SecretRetrieveFormComponent
   ],
   imports: [
     RouterModule.forRoot(
