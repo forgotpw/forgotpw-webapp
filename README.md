@@ -4,6 +4,14 @@ Angular front-end for forgotpw.com.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
+## Setup
+
+Install local dependencies needed for performing deployments and tests
+
+```shell
+pip install iam-starter iam-docker-run ssm-starter
+```
+
 ## Build within Docker
 
 ```shell
@@ -29,7 +37,6 @@ export AWS_ENV="dev" && export PROFILE="fpw$AWS_ENV"
 
 docker build -t forgotpw/forgotpw-webapp:latest .
 
-# pip install iam-docker-run
 iam-docker-run \
   --image forgotpw/forgotpw-webapp:latest \
   --profile $PROFILE \
@@ -46,7 +53,6 @@ export AWS_ENV="prod" && export PROFILE="fpw$AWS_ENV"
 
 docker build -t forgotpw/forgotpw-webapp:latest .
 
-# pip install iam-docker-run
 iam-docker-run \
   --image forgotpw/forgotpw-webapp:latest \
   --profile $PROFILE \
@@ -61,8 +67,6 @@ Use the mockAuthorizedRequest function from the forgotpw-restapi-lambda git repo
 *NOTE: mockAuthorizedRequest.js is in the `forgotpw-restapi-lambda` git repo.  Clone that repo and run the below command from that path.*
 
 ```shell
-# pip install iam-starter ssm-starter
-
 export AWS_REGION="us-east-1"
 export AWS_ENV="dev" && export PROFILE="fpw$AWS_ENV"
 AWS_ENV= iam-starter \
