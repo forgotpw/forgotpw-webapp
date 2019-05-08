@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { PasswordSecretsService } from '../password-secrets-service/password-secrets.service';
-import { timer, interval } from 'rxjs';
+import { timer, interval, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -21,6 +21,7 @@ export class SecretRetrieveFormComponent implements OnInit {
   disappearProgressValue: number;
   showLoading: boolean = false;
   showdisappeared: boolean = false;
+  retrieveSecretSubscription: Subscription;
 
   constructor(
     private passwordSecretsService: PasswordSecretsService,
@@ -30,6 +31,7 @@ export class SecretRetrieveFormComponent implements OnInit {
         // if the url is changed, be sure to reset the form to start over with the new value
         if (val instanceof NavigationEnd) {
           console.log('Route changed, resetting...')
+          this.retrieveSecretSubscription.unsubscribe();
           this.ngOnInit();
         }
       });  
@@ -47,7 +49,7 @@ export class SecretRetrieveFormComponent implements OnInit {
     this.showdisappeared = false;
     this.arid = this.route.snapshot.queryParamMap.get('arid');
 
-    this.passwordSecretsService.retrieveAuthorizedRequestSecret(this.arid).subscribe((secretData) => {
+    this.retrieveSecretSubscription = this.passwordSecretsService.retrieveAuthorizedRequestSecret(this.arid).subscribe((secretData) => {
       // > this.secret = JSON.stringify(secretData);
       // > {"secret":"my secret","rawApplication":"testapp"}
       this.secret = secretData['secret'];
