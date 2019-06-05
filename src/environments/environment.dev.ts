@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api-dev.forgotpw.com/v1'
+    apiUrl: 'https://api-dev.rosa.bot/v1'
   };
   

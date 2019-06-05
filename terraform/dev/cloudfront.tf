@@ -1,11 +1,11 @@
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    origin_id   = "${var.webapp_subdomain}.forgotpw.com"
-    domain_name = "${var.webapp_subdomain}.forgotpw.com.s3.amazonaws.com"
+    origin_id   = "${var.webapp_subdomain}.rosa.bot"
+    domain_name = "${var.webapp_subdomain}.rosa.bot.s3.amazonaws.com"
   }
 
   # If using route53 aliases for DNS we need to declare it here too, otherwise we'll get 403s.
-  aliases = ["${var.webapp_subdomain}.forgotpw.com"]
+  aliases = ["${var.webapp_subdomain}.rosa.bot"]
 
   enabled             = true
   is_ipv6_enabled     = true
@@ -15,7 +15,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     # allow all methods for CORS
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${var.webapp_subdomain}.forgotpw.com"
+    target_origin_id = "${var.webapp_subdomain}.rosa.bot"
 
     forwarded_values {
       query_string = true
@@ -44,13 +44,13 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = "${data.aws_acm_certificate.www.arn}"
+    acm_certificate_arn = "${data.aws_acm_certificate.app_rosa_bot.arn}"
     minimum_protocol_version = "TLSv1"
     ssl_support_method = "sni-only"
   }
 }
 
-data "aws_acm_certificate" "www" {
-  domain   = "*.${var.webapp_subdomain}.forgotpw.com"
+data "aws_acm_certificate" "app_rosa_bot" {
+  domain   = "${var.webapp_subdomain}.rosa.bot"
   statuses = ["ISSUED"]
 }

@@ -1,10 +1,13 @@
 .navbar{
     display: block;
     overflow: hidden;
-    width: 100;
+    top: 0px;
+    width: 100%;
+    min-height:100px;
+    height:auto;
     text-decoration: none;
-    border-radius: 0;
-    border: 0 solid #fff;
+    border-radius: 0px;
+    border: 0px solid #fff;
     z-index:1000;
 }
 .HeaderMain{
@@ -12,15 +15,16 @@
     padding-top:12px;
 }
 .HeaderBkgColor{
-    background-color: #35454d;
-    opacity: 0.97;
+    background: rgb(255,0,236);
+    background: linear-gradient(45deg, rgba(255,0,236,1) 0%, rgba(226,60,70,1) 76%);
+    opacity:0.95;
 }
 .FloatingSubHeaderSpacer{
     display:none;
 }
 .SiteLogoImage{
     display:block;
-    height:50px;
+    height:80px;
     width:auto;
     margin:auto;
 }

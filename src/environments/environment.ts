@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api-dev.forgotpw.com/v1'
+  apiUrl: 'https://api-dev.rosa.bot/v1'
 };
 
 /*
