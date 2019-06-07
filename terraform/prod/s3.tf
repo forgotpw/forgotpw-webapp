@@ -4,7 +4,7 @@
 # }
 
 resource "aws_s3_bucket" "app" {
-    bucket = "${var.webapp_subdomain}.forgotpw.com"
+    bucket = "${var.webapp_subdomain}.rosa.bot"
     acl = "public-read"
 
 #     policy = <<POLICY
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "app" {
 #       "Action": [
 #         "s3:GetObject"
 #       ],
-#       "Resource": "arn:aws:s3:::${var.webapp_subdomain}.forgotpw.com/*",
+#       "Resource": "arn:aws:s3:::${var.webapp_subdomain}.rosa.bot/*",
 #       "Condition": {
 #          "IpAddress": { "aws:SourceIp": "${var.website_allowed_ip_range}" }
 #       }
@@ -35,7 +35,7 @@ policy = <<POLICY
     "Effect":"Allow",
     "Principal": {"AWS": "*"},
     "Action":["s3:GetObject"],
-    "Resource":["arn:aws:s3:::${var.webapp_subdomain}.forgotpw.com/*"]
+    "Resource":["arn:aws:s3:::${var.webapp_subdomain}.rosa.bot/*"]
   }]
 }
 POLICY
@@ -49,7 +49,7 @@ POLICY
 #         "HttpErrorCodeReturnedEquals": "404"
 #     },
 #     "Redirect": {
-#         "HostName": "${var.webapp_subdomain}.forgotpw.com",
+#         "HostName": "${var.webapp_subdomain}.rosa.bot",
 #         "Protocol": "https",
 #         "ReplaceKeyPrefixWith": "#/"
 #     }

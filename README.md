@@ -1,5 +1,7 @@
 # Forgotpw Webapp
 
+**NOTE: Rosa (www.rosa.bot) is the new name for ForgotPW**
+
 Angular front-end for forgotpw.com.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.

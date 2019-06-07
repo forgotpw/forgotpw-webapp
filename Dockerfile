@@ -37,4 +37,7 @@ RUN cp -r /app/dist/forgotpw-webapp/* /usr/share/nginx/html
 EXPOSE 4200
 EXPOSE 443
 
+# NOTE: if entrypoint is overridden with "ng serve" for development, you
+# must use "ng serve --host 0.0.0.0" to allow access outside the container
+
 ENTRYPOINT nginx -g 'daemon off;'
