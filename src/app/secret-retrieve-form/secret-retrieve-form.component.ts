@@ -49,6 +49,15 @@ export class SecretRetrieveFormComponent implements OnInit {
     this.showdisappeared = false;
     this.arid = this.route.snapshot.queryParamMap.get('arid');
 
+    // if the last character of the arid is a period, remove it, which might be
+    // the case from the way the SMS text is built to suppress the live preview
+    // functionality on iOS
+    let lastChar = this.arid[this.arid.length - 1];
+    if (lastChar == '.') {
+      this.arid = this.arid.substr(0, this.arid.length-1);
+    }
+
+
     this.retrieveSecretSubscription = this.passwordSecretsService.retrieveAuthorizedRequestSecret(this.arid).subscribe((secretData) => {
       // > this.secret = JSON.stringify(secretData);
       // > {"secret":"my secret","rawApplication":"testapp"}

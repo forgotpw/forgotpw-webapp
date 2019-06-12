@@ -45,6 +45,14 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
     this.hideTyping = false;
     this.arid = this.route.snapshot.queryParamMap.get('arid');
 
+    // if the last character of the arid is a period, remove it, which might be
+    // the case from the way the SMS text is built to suppress the live preview
+    // functionality on iOS
+    let lastChar = this.arid[this.arid.length - 1];
+    if (lastChar == '.') {
+      this.arid = this.arid.substr(0, this.arid.length-1);
+    }
+
     let formComponents = {};
     formComponents['secret'] = [
           '', [
