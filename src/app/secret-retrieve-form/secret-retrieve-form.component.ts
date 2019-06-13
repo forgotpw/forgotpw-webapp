@@ -63,6 +63,7 @@ export class SecretRetrieveFormComponent implements OnInit {
       // > {"secret":"my secret","rawApplication":"testapp"}
       this.secret = secretData['secret'];
       this.rawApplication = secretData['rawApplication'];
+      this.fireConversionScripts();
       const animationTimer = timer(250);
       const subscribe = animationTimer.subscribe(() => {
         this.showLoading = false;
@@ -97,6 +98,13 @@ export class SecretRetrieveFormComponent implements OnInit {
     this.passwordInput.nativeElement.select();
     // copy to clipboard
     document.execCommand("copy");
+  }
+
+  fireConversionScripts() {
+    console.log('Firing adwords conversion (Retrieved a password)...');
+    (<any>window).gtag('event', 'conversion', {'send_to': 'AW-758048748/R5GrCPLxsqIBEOzPu-kC'});
+    console.log('Firing facebook conversion (Retrieved a password)...');
+    (<any>window).fbq('track', 'CustomizeProduct', { type: 'retrieve' });
   }
 
 }

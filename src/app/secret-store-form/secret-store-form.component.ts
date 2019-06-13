@@ -102,7 +102,7 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
     .subscribe(res => {
 
       this.showSuccess = true;
-      this.fireAdwordsConversion();
+      this.fireConversionScripts();
 
       // const successBannerTimer = timer(3000);
       // const subscribe = successBannerTimer.subscribe(() => {
@@ -125,9 +125,11 @@ export class SecretStoreFormComponent implements OnInit, AfterViewInit {
     });
   }
 
-  fireAdwordsConversion() {
-    console.log('Firing adwords conversion...');
+  fireConversionScripts() {
+    console.log('Firing adwords conversion (Stored a password)...');
     (<any>window).gtag('event', 'conversion', {'send_to': 'AW-758048748/wt4sCJeIvZYBEOzPu-kC'});
+    console.log('Firing facebook conversion (Stored a password)...');
+    (<any>window).fbq('track', 'CustomizeProduct', { type: 'store' });
   }
 
   onClickTips() {
